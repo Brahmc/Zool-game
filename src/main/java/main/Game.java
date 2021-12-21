@@ -1,17 +1,19 @@
+package main;
+
 import Commands.Command;
 
 public class Game {
-    private final WalkModule walkModule;
+    private final Parser parser;
 
     public Game() {
-        walkModule = new WalkModule();
+        parser = new Parser(Parser.Type.WALK);
     }
 
     public void play() {
         boolean finished = false;
 
         while(!finished) {
-            Command c = walkModule.getCommand();
+            Command c = parser.getCommand();
             finished = c.execute();
         }
     }

@@ -10,6 +10,7 @@ public class UNKNOWNcommand extends Command {
 
     @Override
     public boolean execute() {
+        System.out.println("I don't know what you mean...");
         return false;
     }
 }

@@ -1,3 +1,5 @@
+package main;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -52,5 +54,4 @@ public class Room {
     public void removeItem(Item item) {
         items.remove(item);
     }
-
 }

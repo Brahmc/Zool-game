@@ -1,26 +1,36 @@
+package main;
+
 import Commands.Command;
 import Commands.CommandFactory;
 
 import java.util.*;
 
-abstract public class CommandModule {
+public class Parser {
     private final Scanner reader;
     private final CommandFactory commandFactory;
+    private final HashSet<CommandFactory.CommandType> commands;
 
-    public CommandModule() {
+    public Parser(Type type) {
         commandFactory = new CommandFactory();
+        commands = CommandList.getCommands(type);
         reader = new Scanner(System.in);
     }
 
-    abstract protected HashSet<CommandFactory.CommandType> getCommands();
+    public enum Type {
+        WALK, FIGHT, NULL
+    }
 
-    public Command getCommand() {
+
+    protected String[] getInput() {
         String inputLine;
         System.out.print(">");
 
         inputLine = reader.nextLine();
+        return inputLine.toLowerCase(Locale.ROOT).split("\s+");
+    }
 
-        String[] lineArray = inputLine.toLowerCase(Locale.ROOT).split("\s+");
+    public Command getCommand() {
+        String[] lineArray = getInput();
         List<String> args = toArgs(lineArray);
         CommandFactory.CommandType commandWord = commandFactory.getCommand(lineArray[0]);
 
@@ -34,10 +44,10 @@ abstract public class CommandModule {
     }
 
     protected Command toCommand(CommandFactory.CommandType commandWord, List<String> args) {
-        if(getCommands().contains(commandWord)) {
-            return commandFactory.getCommand(commandWord, args);
+        if(commands.contains(commandWord)) {
+            return commandFactory.getCommand(commandWord, args, commands);
         } else {
-            return commandFactory.getCommand(CommandFactory.CommandType.UNKNOWN, args);
+            return commandFactory.getCommand(CommandFactory.CommandType.UNKNOWN, args, commands);
         }
     }
 }

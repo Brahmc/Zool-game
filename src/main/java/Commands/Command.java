@@ -14,6 +14,4 @@ abstract public class Command {
     }
 
     abstract public boolean execute();
-
-
 }
