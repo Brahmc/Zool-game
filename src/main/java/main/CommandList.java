@@ -4,36 +4,40 @@ import Commands.CommandFactory;
 
 import java.util.Collections;
 import java.util.HashSet;
+import Commands.CommandFactory.CommandType;
 
-public class CommandList{
+public class CommandList implements CmdList{
 
 
     public CommandList() {
 
     }
 
-    private static HashSet<CommandFactory.CommandType> getDefault() { //commands you can ALWAYS do
-        HashSet<CommandFactory.CommandType> commands = new HashSet<>();
+    private static HashSet<CommandType> getDefault() { //commands you can ALWAYS do
+        HashSet<CommandType> commands = new HashSet<>();
         Collections.addAll(commands,
-                CommandFactory.CommandType.HELP);
+                CommandType.HELP);
         return commands;
     }
 
-    private static HashSet<CommandFactory.CommandType> getWALK() {
-        HashSet<CommandFactory.CommandType> commands = getDefault();
+    private static HashSet<CommandType> getWALK() {
+        HashSet<CommandType> commands = getDefault();
         Collections.addAll(commands,
-                CommandFactory.CommandType.LOOK,
-                CommandFactory.CommandType.UNKNOWN);
+                CommandType.LOOK,
+                CommandType.UNKNOWN,
+                CommandType.TEST,
+                CommandType.TAKE,
+                CommandType.DROP);
         return commands;
     }
 
-    private static HashSet<CommandFactory.CommandType> getFIGHT() {
-        HashSet<CommandFactory.CommandType> commands = getDefault();
+    private static HashSet<CommandType> getFIGHT() {
+        HashSet<CommandType> commands = getDefault();
 
         return commands;
     }
 
-    public static HashSet<CommandFactory.CommandType> getCommands(Parser.Type type) {
+    public static HashSet<CommandFactory.CommandType> getCommands(CommandParse.Type type) {
         return switch (type) {
             case WALK -> getWALK();
             case FIGHT -> getFIGHT();

@@ -1,5 +1,7 @@
 package Commands;
 
+import main.Player;
+
 import java.util.List;
 
 abstract public class Command {
@@ -13,5 +15,5 @@ abstract public class Command {
         return args;
     }
 
-    abstract public boolean execute();
+    abstract public boolean execute(Player player);
 }

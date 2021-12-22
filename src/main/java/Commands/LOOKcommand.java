@@ -1,5 +1,7 @@
 package Commands;
 
+import main.Player;
+
 import java.util.List;
 
 public class LOOKcommand extends Command {
@@ -8,10 +10,8 @@ public class LOOKcommand extends Command {
         super(args);
     }
 
-    public boolean execute() {
-        System.out.println("test");
+    public boolean execute(Player player) {
+        System.out.println(player.getCurrentRoom().getLongDescription());
         return false;
     }
-
-
 }

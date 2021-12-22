@@ -1,6 +1,7 @@
 package Commands;
 
 import main.Parser;
+import main.Player;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -15,7 +16,7 @@ public class HELPcommand extends Command{
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(Player player) {
         System.out.println("Your command words are: " + String.join(", ", helpWords));
         return false;
     }

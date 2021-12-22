@@ -1,5 +1,7 @@
 package Commands;
 
+import main.Player;
+
 import java.util.List;
 
 public class UNKNOWNcommand extends Command {
@@ -9,7 +11,7 @@ public class UNKNOWNcommand extends Command {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(Player player) {
         System.out.println("I don't know what you mean...");
         return false;
     }

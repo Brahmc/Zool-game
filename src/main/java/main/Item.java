@@ -5,7 +5,7 @@ public class Item {
     private String description;
     private double weight;
     private int damage;
-    boolean isCollectable;
+    private boolean isCollectable;
 
     public Item(String name, String description, double weight, int damage, boolean isCollectable) {
         this.name = name;
@@ -23,13 +23,15 @@ public class Item {
         return name;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public boolean isCollectable() {
+        return isCollectable;
+    }
+
+    public void setCollectable(boolean collectable) {
+        isCollectable = collectable;
     }
 
     public String toString() {
         return getName() + " (" + description + ") (" + weight + "kg)" + "(" + damage + " dmg)";
     }
-
-
 }

@@ -1,6 +1,6 @@
 package Commands;
 
-import main.Parser;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,12 +10,12 @@ public class CommandFactory {
     private static HashMap<String, CommandType> commandMap;
 
     public CommandFactory() {
-        commandMap = new HashMap<String, CommandType>();
+        commandMap = new HashMap<>();
         fill();
     }
 
     public enum CommandType {
-        LOOK, HELP, UNKNOWN
+        LOOK, HELP, TEST, TAKE, DROP, UNKNOWN
     }
 
     private void fill() {   // command words have the same key as the type, this is not a necessity (different languages can be easily added)
@@ -35,6 +35,9 @@ public class CommandFactory {
             case LOOK -> new LOOKcommand(args);
             case UNKNOWN -> new UNKNOWNcommand(args);
             case HELP -> new HELPcommand(args, commands, commandMap);
+            case TAKE -> new TAKEcommand(args);
+            case DROP -> new DROPcommand(args);
+            case TEST -> new TESTcommand(args);
         };
     }
 
