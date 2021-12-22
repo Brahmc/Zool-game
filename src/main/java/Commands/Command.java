@@ -5,7 +5,8 @@ import main.Player;
 import java.util.List;
 
 abstract public class Command {
-    private List<String> args;
+
+    private final List<String> args;
 
     public Command(List<String> args) {
         this.args = args;

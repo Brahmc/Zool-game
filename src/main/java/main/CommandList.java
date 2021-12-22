@@ -25,9 +25,10 @@ public class CommandList implements CmdList{
         Collections.addAll(commands,
                 CommandType.LOOK,
                 CommandType.UNKNOWN,
-                CommandType.TEST,
                 CommandType.TAKE,
-                CommandType.DROP);
+                CommandType.DROP,
+                CommandType.GO,
+                CommandType.QUIT);
         return commands;
     }
 

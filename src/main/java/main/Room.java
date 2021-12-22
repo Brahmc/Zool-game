@@ -55,7 +55,7 @@ public class Room {
 
     public String getLongDescription() {
         String info = description + ".\n" + getExitString();
-        if(!items.isEmpty()) info += "\n\nThis room contains item(s): ";
+        if(!items.isEmpty()) info += "\n\nThis room has items: ";
         for(Item item : items) {
             info += "\n" + item.toString() + " ";
         }
