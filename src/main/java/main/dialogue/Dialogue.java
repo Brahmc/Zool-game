@@ -11,7 +11,7 @@ abstract public class Dialogue {
     }
 
     enum Type {
-        DEFAULT, GIVE
+        DEFAULT, GIVE, END
     }
 
     public String getText() {

@@ -15,8 +15,6 @@ public class DialogueDefault extends Dialogue{
         followUps.put(option, followUp);
     }
 
-
-
     public Dialogue getFollowUp(String option) {
         return followUps.get(option);
     }

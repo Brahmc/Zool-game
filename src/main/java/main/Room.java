@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 
 public class Room {
     private final String description;
@@ -50,7 +51,9 @@ public class Room {
 
     public Character getCharacterByName(String name) {
         for(Character character : characters) {
-            if(character.getName().equals(name)) return character;
+            String cName = character.getName().toLowerCase(Locale.ROOT);
+            if(cName.equals(name))
+                return character;
         }
         return null;
     }

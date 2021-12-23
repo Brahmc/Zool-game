@@ -2,6 +2,7 @@ package main;
 
 import main.dialogue.Dialogue;
 import main.dialogue.DialogueDefault;
+import main.dialogue.DialogueEnd;
 import main.dialogue.DialogueGive;
 
 public class Person extends Character {
@@ -26,6 +27,10 @@ public class Person extends Character {
     }
 
     public boolean nextDialogue(String option) {
+        if(currentDialogue instanceof DialogueEnd e) {
+            currentDialogue = e.getNewDialogue();
+            return true;
+        }
         if(currentDialogue instanceof  DialogueDefault d) {
             if(d.hasOption(option)) {
                 currentDialogue = d.getFollowUp(option);

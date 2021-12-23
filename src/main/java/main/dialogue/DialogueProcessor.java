@@ -5,19 +5,23 @@ import main.Parser;
 import main.Person;
 import main.Player;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public interface DialogueProcessor {
-    int PRINTCOLOR = 32;
+    int PRINTCOLOR = 33;
 
     static void processDialogue(Person person, Player player) {
         printText(person, player);
-        System.out.println();
         if(!person.getDialogue().hasOptions()) return; // don't to continue if dialogue is text only
 
         switch (person.getDialogue().getType()) {
             case DEFAULT -> getResponse(person);
             case GIVE -> giveItem(player, person);
+            case END -> {    // loads next dialogue but doesn't ask any new questions and ends the loop.
+                person.nextDialogue("");
+                return;
+            }
         }
          processDialogue(person, player); //run method again for next dialogue
     }
@@ -26,20 +30,22 @@ public interface DialogueProcessor {
         String text = person.getDialogue().getText();
         Scanner converter = new Scanner(text).useDelimiter("__");
 
-        System.out.print(person.getName() + ": “");
+        StringBuilder endString = new StringBuilder(person.getDisplayName() + ": “");
         while (converter.hasNext()) {
             String part = converter.next();
             switch (part) {
-                case "PLAYER_NAME" -> System.out.print(player.getDisplayName());
-                case "CHARACTER_NAME" -> System.out.print(person.getDisplayName());
+                case "PLAYER_NAME" -> endString.append(player.getDisplayName());
+                case "CHARACTER_NAME" -> endString.append(person.getDisplayName());
+                case "ITEM_NAME" -> endString.append(person.getItemOnOffer().getName());
                 default -> {
                     String COLOR_START = "\u001B[" + PRINTCOLOR + "m";
                     String COLOR_END = "\u001B[0m";
-                    System.out.print(COLOR_START + part + COLOR_END);
+                    endString.append(COLOR_START).append(part).append(COLOR_END);
                 }
             }
         }
-        System.out.print("”");
+        endString.append("”");
+        System.out.println(endString);
     }
 
     private static void getResponse(Person person) {
@@ -47,8 +53,8 @@ public interface DialogueProcessor {
         boolean answered = false;
         while (!answered) {
             System.out.println(person.getCurrentOptions());
-            String answer = pars.getFirstOnly(); // hold till answer
-
+            String answer = pars.getInput()
+                                .toLowerCase(Locale.ROOT); // hold till answer
             answered = person.nextDialogue(answer);
         }
     }

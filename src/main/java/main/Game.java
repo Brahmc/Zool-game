@@ -2,6 +2,7 @@ package main;
 
 import Commands.Command;
 import main.dialogue.DialogueDefault;
+import main.dialogue.DialogueEnd;
 import main.dialogue.DialogueGive;
 
 public class Game {
@@ -76,21 +77,46 @@ public class Game {
         townHall.addItem(new Item("sword", "stone sword", 1.2, 3));
         townHall.addItem(new Item("bookshelf", "wooden bookshelf", 100, 100, false));
 
-        DialogueDefault toekenOrToken, toeken, bye;
+        DialogueDefault welcome, demonlord, thatsMe, hero, guild;
+        DialogueEnd noHelp, end, endRefuse;
+        DialogueGive name;
 
-        toekenOrToken = new DialogueDefault("Oi  __PLAYER_NAME__, you think I should use toekens or tokens?");
-        toeken = new DialogueDefault("Toekens eh, poggers");
-        DialogueGive token = new DialogueGive("I'll give you a token", new Item("token",  "a legendary token", 1, 100));
-        token.setRefuseResponse(new DialogueDefault("why don't you want my token, __PLAYER_NAME__??"));
-        token.setTakeResponse(new DialogueDefault("Here you go have a nice day!"));
+        welcome = new DialogueDefault("Welcome to the adventurers guild sir, how can I help you?");  // -> demonlord, noHelp
+        demonlord = new DialogueDefault("""
+                Shh.. don't say that out loud, that demon has been terrorizing the town for years.
+                The only hope we have left for the hero defeat him. Rumor is he showed up in town recently!"""); // -> thatsMe, hero
+        noHelp = new DialogueEnd("Have a good day Sir!", welcome);
+        thatsMe = new DialogueDefault(""" 
+                Haha, surely you're joking..
+                Wait a minute.. You look EXACTLY like they described him!! What's your name sir?
+                """); // -> name
+        hero = new DialogueDefault("""
+                Yes, the hero the only one strong enough to defeat the demon lord! Wait a minute..
+                you look an awful lot like him.."""); // -> name
+        name = new DialogueGive("""
+                It's really you __PLAYER_NAME__! I can't believe the hero finally showed up!
+                Please, let met give you this __ITEM_NAME__ it's not much but I want to help out wherever I can!
+               
+                """, new Item("sword", "iron sword", 3, 6));
+        guild = new DialogueDefault("You should check out the adventurers guild. I'm sure they can help you out!");
+        end= new DialogueEnd("You are our only hope __PLAYER_NAME__..", guild);
+        endRefuse = new DialogueEnd("I guess a real hero wouldn't need an iron sword..", guild);
 
-        toekenOrToken.addOption("toeken", toeken);
-        toekenOrToken.addOption("token", token);
+        welcome.addOption("demon lord", demonlord);
+        welcome.addOption("not now", noHelp);
+        demonlord.addOption("that's me", thatsMe);
+        demonlord.addOption("hero", hero);
+        thatsMe.addOption("name", name);
+        hero.addOption("really", name);
+        name.setTakeResponse(end);
+        name.setRefuseResponse(endRefuse);
 
-        Person marc = new Person("marc");
-        marc.setCurrentDialogue(toekenOrToken);
 
-        villageCenter.addCharacter(marc);
+        Person alan = new Person("Alan");
+        alan.setColor(96);
+        alan.setCurrentDialogue(welcome);
+
+        villageCenter.addCharacter(alan);
 
         player.setCurrentRoom(villageCenter);
     }
