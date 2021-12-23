@@ -1,6 +1,5 @@
 package main.dialogue;
 
-import main.Exceptoins.NoDefaultDialogeException;
 import main.Item;
 import main.Parser;
 import main.Person;
@@ -9,54 +8,61 @@ import main.Player;
 import java.util.Scanner;
 
 public interface DialogueProcessor {
+    int PRINTCOLOR = 32;
 
-    static void proccesDialogue(Person person, Player player) {
-        Dialogue dialogue = person.getDialogue();
-        printText(dialogue.getText(), player);
+    static void processDialogue(Person person, Player player) {
+        printText(person, player);
         System.out.println();
-        if(!person.getDialogue().hasOptions()) return; // no need to continue if dialogue is text only
+        if(!person.getDialogue().hasOptions()) return; // don't to continue if dialogue is text only
 
-        if(dialogue instanceof DialogueGive give) {
-            giveItem(give, player, person);
-        }   else if(dialogue instanceof DialogueDefault){
-            getResponse(person);
+        switch (person.getDialogue().getType()) {
+            case DEFAULT -> getResponse(person);
+            case GIVE -> giveItem(player, person);
         }
-         proccesDialogue(person, player); //run method again for next dialogue
+         processDialogue(person, player); //run method again for next dialogue
     }
 
-    private static void printText(String text, Player player) {
+    private static void printText(Person person, Player player) {
+        String text = person.getDialogue().getText();
         Scanner converter = new Scanner(text).useDelimiter("__");
+
+        System.out.print(person.getName() + ": “");
         while (converter.hasNext()) {
             String part = converter.next();
-            if(part.equals("PLAYER_NAME")) {
-                System.out.print(player.getName());
-                continue;
+            switch (part) {
+                case "PLAYER_NAME" -> System.out.print(player.getDisplayName());
+                case "CHARACTER_NAME" -> System.out.print(person.getDisplayName());
+                default -> {
+                    String COLOR_START = "\u001B[" + PRINTCOLOR + "m";
+                    String COLOR_END = "\u001B[0m";
+                    System.out.print(COLOR_START + part + COLOR_END);
+                }
             }
-            System.out.print(part);
         }
+        System.out.print("”");
     }
 
     private static void getResponse(Person person) {
-        Parser p = new Parser();
+        Parser pars = new Parser();
         boolean answered = false;
         while (!answered) {
             System.out.println(person.getCurrentOptions());
-            String answer = p.getFirstOnly(); // hold till answer
+            String answer = pars.getFirstOnly(); // hold till answer
 
             answered = person.nextDialogue(answer);
         }
     }
 
-    private static void giveItem(DialogueGive dialogueGive, Player player, Person person) {
-        Item item = dialogueGive.getItem();
+    private static void giveItem(Player player, Person person) {
         boolean answered = false;
+        Item item = person.getItemOnOffer();
 
-        Parser p = new Parser();
+        Parser pars = new Parser();
         while (!answered) {
-            System.out.println(person.getName() + "Offered you: " + item + ".");
-            System.out.println(dialogueGive.getOptions());
+            System.out.println(person.getDisplayName() + " offered you: " + item + ".");
+            System.out.println(person.getCurrentOptions());
 
-            String answer = p.getFirstOnly(); // hold till answer
+            String answer = pars.getFirstOnly(); // hold till answer
             answered = person.nextDialogue(answer);
             if(answer.equals("take")) {
                 person.givePlayer(player, item);

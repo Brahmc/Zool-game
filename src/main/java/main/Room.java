@@ -70,7 +70,7 @@ public class Room {
     public String getLongDescription() {
         String info = description + ".\n" + getExitString();
         if(!items.isEmpty()) info += "\n\nThis room has items: " + getItemString();
-        if(!characters.isEmpty()) info += "\nPeople in room: " + getCharacterString();
+        if(!characters.isEmpty()) info += "\n\nPeople near you: " + getCharacterString();
         return info;
     }
 
@@ -85,7 +85,7 @@ public class Room {
     private String getCharacterString() {
         HashSet<String> names = new HashSet<>();
         for(Character c : characters) {
-            names.add(c.getName());
+            names.add(c.getDisplayName());
         }
         return String.join(", ", names);
     }

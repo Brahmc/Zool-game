@@ -9,7 +9,7 @@ public class DialogueGive extends Dialogue{
     private Dialogue refuseResponse;
 
     public DialogueGive(String text, Item item) {
-        super(text);
+        super(text, Type.GIVE);
         this.item = item;
     }
 

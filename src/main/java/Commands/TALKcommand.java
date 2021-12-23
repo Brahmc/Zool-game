@@ -31,7 +31,7 @@ public class TALKcommand extends Command{
             System.out.println("You can't talk to that character!");
             return false;
         }
-        DialogueProcessor.proccesDialogue(person, player);
+        DialogueProcessor.processDialogue(person, player);
         return false;
     }
 }

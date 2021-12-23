@@ -47,6 +47,13 @@ public class Person extends Character {
             return false;
     }
 
+    public Item getItemOnOffer() {
+        if(currentDialogue instanceof DialogueGive g) {
+            return g.getItem();
+        }
+        return null;
+    }
+
     public void givePlayer(Player player, Item item) {
         player.getInventory().add(item);
         getInventory().remove(item);

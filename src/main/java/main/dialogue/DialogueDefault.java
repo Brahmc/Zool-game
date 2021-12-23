@@ -7,7 +7,7 @@ public class DialogueDefault extends Dialogue{
     private final HashMap<String, Dialogue> followUps;
 
     public DialogueDefault(String text) {
-        super(text);
+        super(text, Type.DEFAULT);
         followUps = new HashMap<>();
     }
 

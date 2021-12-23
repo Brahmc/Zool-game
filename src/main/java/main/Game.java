@@ -11,6 +11,7 @@ public class Game {
     public Game() {
         parser = new CommandParse(CommandParse.Type.WALK);
         player = new Player(askName());
+        player.setColor(36);
         createRooms();
         printWelcome();
     }
@@ -29,7 +30,7 @@ public class Game {
             nameRight = OptionParse.twoChoice(parser, "Are you sure you want to be called " + name + "?"
                                         , "yes", "no");
         }
-        return "\u001B[32m" + name + "\u001B[0m"; // name will always be printed in color
+        return name; // name will always be printed in color
     }
 
     private void createRooms() {
@@ -96,7 +97,7 @@ public class Game {
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul, " + player.getName() + "!");
+        System.out.println("Welcome to the World of Zuul, " + player.getDisplayName() + "!");
         System.out.println();
         System.out.println("For hundreds of years an evil demon lord has been terrorising the people.");
         System.out.println("But don't worry, someone by the name of " + player.getName() + " can stop him. Or so the legend goes...");

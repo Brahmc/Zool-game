@@ -11,7 +11,7 @@ public class LOOKcommand extends Command {
     }
 
     public boolean execute(Player player) {
-        System.out.println(player.getCurrentRoom().getLongDescription());
+        System.out.println(player.getInfo());
         return false;
     }
 }

@@ -35,7 +35,7 @@ public class Player extends Character{
     }
 
     public String getInfo() {
-        return "You are currently " + getCurrentRoom().getLongDescription();
+        return "You are currently " + currentRoom.getLongDescription();
     }
 
     public boolean drop(String name) {
