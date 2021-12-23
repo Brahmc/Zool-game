@@ -1,7 +1,6 @@
-package main;
+package main.dialogue;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class DialogueDefault extends Dialogue{
 
@@ -16,12 +15,10 @@ public class DialogueDefault extends Dialogue{
         followUps.put(option, followUp);
     }
 
+
+
     public Dialogue getFollowUp(String option) {
         return followUps.get(option);
-    }
-
-    public HashMap<String, Dialogue> getFollowUps() {
-        return followUps;
     }
 
     public boolean hasOption(String option) {

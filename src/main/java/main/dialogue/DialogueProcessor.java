@@ -1,6 +1,10 @@
-package main;
+package main.dialogue;
 
 import main.Exceptoins.NoDefaultDialogeException;
+import main.Item;
+import main.Parser;
+import main.Person;
+import main.Player;
 
 import java.util.Scanner;
 
@@ -10,7 +14,7 @@ public class DialogueProcessor {
         Dialogue dialogue = person.getDialogue();
         printText(dialogue.getText(), player);
         System.out.println();
-        if(!person.getDialogue().hasOptions()) return;
+        if(!person.getDialogue().hasOptions()) return; // no need to continue if dialogue is text only
 
         if(dialogue instanceof DialogueGive give) {
             giveItem(give, player, person);

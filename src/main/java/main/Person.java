@@ -2,6 +2,8 @@ package main;
 
 
 import main.Exceptoins.NoDefaultDialogeException;
+import main.dialogue.Dialogue;
+import main.dialogue.DialogueDefault;
 
 public class Person extends Character{
 
@@ -21,6 +23,7 @@ public class Person extends Character{
     public Dialogue getDialogue() {
         return currentDialogue;
     }
+
 
     public boolean nextDialogue(String option) throws NoDefaultDialogeException {
         if(currentDialogue instanceof  DialogueDefault d) {

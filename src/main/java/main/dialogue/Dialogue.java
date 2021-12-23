@@ -1,4 +1,4 @@
-package main;
+package main.dialogue;
 
 
 abstract public class Dialogue {

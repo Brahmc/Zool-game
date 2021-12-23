@@ -1,7 +1,7 @@
 package Commands;
 
 import main.Character;
-import main.DialogueProcessor;
+import main.dialogue.DialogueProcessor;
 import main.Person;
 import main.Player;
 

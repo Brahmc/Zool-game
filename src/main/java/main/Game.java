@@ -1,6 +1,8 @@
 package main;
 
 import Commands.Command;
+import main.dialogue.DialogueDefault;
+import main.dialogue.DialogueGive;
 
 public class Game {
     private final CommandParse parser;

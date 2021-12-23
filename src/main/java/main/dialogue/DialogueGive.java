@@ -1,4 +1,6 @@
-package main;
+package main.dialogue;
+
+import main.Item;
 
 public class DialogueGive extends Dialogue{
 
