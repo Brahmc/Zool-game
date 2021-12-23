@@ -75,10 +75,10 @@ public class Game {
 
         DialogueDefault toekenOrToken, toeken, bye;
 
-        toekenOrToken = new DialogueDefault("Oi m8, you think I should use toekens or tokens?");
+        toekenOrToken = new DialogueDefault("Oi  __PLAYER_NAME__, you think I should use toekens or tokens?");
         toeken = new DialogueDefault("Toekens eh, poggers");
         DialogueGive token = new DialogueGive("I'll give you a token", new Item("token",  "a legendary token", 1, 100));
-        token.setRefuseResponse(new DialogueDefault("why don't you want my token??"));
+        token.setRefuseResponse(new DialogueDefault("why don't you want my token, __PLAYER_NAME__??"));
         token.setTakeResponse(new DialogueDefault("Here you go have a nice day!"));
 
         toekenOrToken.addOption("toeken", toeken);
@@ -86,7 +86,6 @@ public class Game {
 
         Person marc = new Person("marc");
         marc.setCurrentDialogue(toekenOrToken);
-
 
         villageCenter.addCharacter(marc);
 

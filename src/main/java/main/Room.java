@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Room {
     private final String description;
@@ -68,10 +69,24 @@ public class Room {
 
     public String getLongDescription() {
         String info = description + ".\n" + getExitString();
-        if(!items.isEmpty()) info += "\n\nThis room has items: ";
-        for(Item item : items) {
-            info += "\n" + item.toString() + " ";
-        }
+        if(!items.isEmpty()) info += "\n\nThis room has items: " + getItemString();
+        if(!characters.isEmpty()) info += "\nPeople in room: " + getCharacterString();
         return info;
+    }
+
+    private String getItemString() {
+        StringBuilder string = new StringBuilder();
+        for(Item item : items) {
+            string.append("\n").append(item.toString()).append(" ");
+        }
+        return string.toString();
+    }
+
+    private String getCharacterString() {
+        HashSet<String> names = new HashSet<>();
+        for(Character c : characters) {
+            names.add(c.getName());
+        }
+        return String.join(", ", names);
     }
 }

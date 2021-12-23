@@ -3,8 +3,6 @@ package main;
 import main.Exceptoins.NoItemException;
 import main.Exceptoins.NotCollectableException;
 
-import java.util.ArrayList;
-
 
 public class Player extends Character{
     private Room currentRoom;

@@ -30,7 +30,7 @@ public class DialogueDefault extends Dialogue{
 
     @Override
     public String getOptions() {
-        return String.join(", ", followUps.keySet());
+        return "Options: " +String.join(", ", followUps.keySet());
     }
 
     @Override

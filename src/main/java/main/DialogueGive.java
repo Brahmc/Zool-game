@@ -33,7 +33,7 @@ public class DialogueGive extends Dialogue{
 
     @Override
     public String getOptions() {
-        return "take, refuse";
+        return "Options: take, refuse";
     }
 
     @Override

@@ -22,7 +22,6 @@ public class DialogueProcessor {
 
     private static void printText(String text, Player player) {
         Scanner converter = new Scanner(text).useDelimiter("__");
-
         while (converter.hasNext()) {
             String part = converter.next();
             if(part.equals("PLAYER_NAME")) {
