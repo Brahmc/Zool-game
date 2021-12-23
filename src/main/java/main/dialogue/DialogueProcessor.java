@@ -8,9 +8,9 @@ import main.Player;
 
 import java.util.Scanner;
 
-public class DialogueProcessor {
+public interface DialogueProcessor {
 
-    public static void proccesDialogue(Person person, Player player) {
+    static void proccesDialogue(Person person, Player player) {
         Dialogue dialogue = person.getDialogue();
         printText(dialogue.getText(), player);
         System.out.println();
@@ -18,8 +18,8 @@ public class DialogueProcessor {
 
         if(dialogue instanceof DialogueGive give) {
             giveItem(give, player, person);
-        }   else if(dialogue instanceof DialogueDefault dDefault){
-            getResponse(dDefault, person);
+        }   else if(dialogue instanceof DialogueDefault){
+            getResponse(person);
         }
          proccesDialogue(person, player); //run method again for next dialogue
     }
@@ -36,20 +36,14 @@ public class DialogueProcessor {
         }
     }
 
-    private static void getResponse(DialogueDefault dDefault, Person person) {
+    private static void getResponse(Person person) {
         Parser p = new Parser();
-        while (true) {
-            System.out.println(dDefault.getOptions());
+        boolean answered = false;
+        while (!answered) {
+            System.out.println(person.getCurrentOptions());
             String answer = p.getFirstOnly(); // hold till answer
-            if(dDefault.hasOption(answer)) {
-                try {
-                    person.nextDialogue(answer);
-                    return;
-                } catch (NoDefaultDialogeException e) { // should in theory never happen
-                    e.printStackTrace();
-                    return;
-                }
-            }
+
+            answered = person.nextDialogue(answer);
         }
     }
 
@@ -63,15 +57,10 @@ public class DialogueProcessor {
             System.out.println(dialogueGive.getOptions());
 
             String answer = p.getFirstOnly(); // hold till answer
+            answered = person.nextDialogue(answer);
             if(answer.equals("take")) {
-                player.getInventory().add(item);
-                person.getInventory().remove(item);
-                person.setCurrentDialogue(dialogueGive.getTakeResponse());
+                person.givePlayer(player, item);
                 System.out.println("You received: " + item);
-                answered = true;
-            }
-            if(answer.equals("refuse")) {
-                person.setCurrentDialogue(dialogueGive.getRefuseResponse());
                 answered = true;
             }
         }

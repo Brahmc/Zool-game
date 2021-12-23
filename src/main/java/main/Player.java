@@ -22,7 +22,7 @@ public class Player extends Character{
         this.currentRoom = currentRoom;
     }
 
-    public void take(String name) throws NoItemException, NotCollectableException {
+    public void takeFromRoom(String name) throws NoItemException, NotCollectableException {
         Item item = currentRoom.getItemByName(name);
         if(item == null) {
             throw new NoItemException("There is no such item in the room!");

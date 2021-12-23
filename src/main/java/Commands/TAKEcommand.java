@@ -21,7 +21,7 @@ public class TAKEcommand extends Command{
         String itemName = getArgs().get(0);
 
         try {
-            player.take(itemName);
+            player.takeFromRoom(itemName);
         } catch (NoItemException | NotCollectableException e) {
             System.out.println(e.getMessage());
             return false;

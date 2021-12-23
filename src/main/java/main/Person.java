@@ -1,11 +1,10 @@
 package main;
 
-
-import main.Exceptoins.NoDefaultDialogeException;
 import main.dialogue.Dialogue;
 import main.dialogue.DialogueDefault;
+import main.dialogue.DialogueGive;
 
-public class Person extends Character{
+public class Person extends Character {
 
     private Dialogue currentDialogue;
 
@@ -14,29 +13,42 @@ public class Person extends Character{
         currentDialogue = null;
     }
 
-    public boolean setCurrentDialogue(Dialogue dialogue) {
+    public void setCurrentDialogue(Dialogue dialogue) {
         this.currentDialogue = dialogue;
-        return !(currentDialogue == null);
     }
-
 
     public Dialogue getDialogue() {
         return currentDialogue;
     }
 
+    public String getCurrentOptions() {
+        return currentDialogue.getOptions();
+    }
 
-    public boolean nextDialogue(String option) throws NoDefaultDialogeException {
+    public boolean nextDialogue(String option) {
         if(currentDialogue instanceof  DialogueDefault d) {
-            currentDialogue = d.getFollowUp(option);
-        } else {
-            throw new NoDefaultDialogeException("currentRoom is no instance of DialogueDefault");
+            if(d.hasOption(option)) {
+                currentDialogue = d.getFollowUp(option);
+                return true;
+            }
+            return false;
         }
-        return !(currentDialogue == null);
+        if(currentDialogue instanceof  DialogueGive g) {
+            if(option.equals("take")) {
+                currentDialogue = g.getTakeResponse();
+
+                return true;
+            }
+            if(option.equals("refuse")) {
+                currentDialogue = g.getRefuseResponse();
+                return true;
+            }
+        }
+            return false;
     }
 
-    public boolean hasDialogue() {
-        return (currentDialogue != null);
+    public void givePlayer(Player player, Item item) {
+        player.getInventory().add(item);
+        getInventory().remove(item);
     }
-
-
 }
