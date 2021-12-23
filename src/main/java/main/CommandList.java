@@ -28,7 +28,9 @@ public class CommandList implements CmdList{
                 CommandType.TAKE,
                 CommandType.DROP,
                 CommandType.GO,
-                CommandType.QUIT);
+                CommandType.QUIT,
+                CommandType.TEST,
+                CommandType.TALK);
         return commands;
     }
 

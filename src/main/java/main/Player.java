@@ -5,28 +5,15 @@ import main.Exceptoins.NotCollectableException;
 
 import java.util.ArrayList;
 
-public class Player {
-    private String name;
-    private int health;
+
+public class Player extends Character{
     private Room currentRoom;
-    private ArrayList<Item> inventory;
     private double maxWeight;
 
     public Player(String name) {
-        setName(name);
-        inventory = new ArrayList<>();
-        health = 0;
+        super(name);
         maxWeight = 25;
-        health = 100;
         currentRoom = null;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Room getCurrentRoom() {
@@ -37,10 +24,6 @@ public class Player {
         this.currentRoom = currentRoom;
     }
 
-    public ArrayList<Item> getInventory() {
-        return inventory;
-    }
-
     public void take(String name) throws NoItemException, NotCollectableException {
         Item item = currentRoom.getItemByName(name);
         if(item == null) {
@@ -49,7 +32,7 @@ public class Player {
         if(!item.isCollectable()) {
             throw new NotCollectableException("You can't take that item!");
         }
-        inventory.add(item);
+        getInventory().add(item);
         currentRoom.removeItem(item);
     }
 
@@ -58,9 +41,10 @@ public class Player {
     }
 
     public boolean drop(String name) {
-        for(Item item : inventory) {
+        for(Item item : getInventory()) {
             if(item.getName().equals(name)) {
-                inventory.remove(item);
+                getInventory().remove(item);
+                currentRoom.addItem(item);
                 return true;
             }
         }

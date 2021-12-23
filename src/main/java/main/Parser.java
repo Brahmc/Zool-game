@@ -16,4 +16,8 @@ public class Parser {
         inputLine = reader.nextLine();
         return inputLine.trim();
     }
+
+    public String getFirstOnly() {
+        return getInput().split("\s+")[0];
+    }
 }

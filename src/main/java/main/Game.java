@@ -71,7 +71,24 @@ public class Game {
 
         // spawn items
         townHall.addItem(new Item("sword", "stone sword", 1.2, 3));
-        townHall.addItem(new Item("bookshelf", "wooden bookshelf", 100, 100));
+        townHall.addItem(new Item("bookshelf", "wooden bookshelf", 100, 100, false));
+
+        DialogueDefault toekenOrToken, toeken, bye;
+
+        toekenOrToken = new DialogueDefault("Oi m8, you think I should use toekens or tokens?");
+        toeken = new DialogueDefault("Toekens eh, poggers");
+        DialogueGive token = new DialogueGive("I'll give you a token", new Item("token",  "a legendary token", 1, 100));
+        token.setRefuseResponse(new DialogueDefault("why don't you want my token??"));
+        token.setTakeResponse(new DialogueDefault("Here you go have a nice day!"));
+
+        toekenOrToken.addOption("toeken", toeken);
+        toekenOrToken.addOption("token", token);
+
+        Person marc = new Person("marc");
+        marc.setCurrentDialogue(toekenOrToken);
+
+
+        villageCenter.addCharacter(marc);
 
         player.setCurrentRoom(villageCenter);
     }

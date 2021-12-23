@@ -5,13 +5,15 @@ import java.util.HashMap;
 
 public class Room {
     private final String description;
-    private HashMap<String, Room> exits;
-    private ArrayList<Item> items;
+    private final HashMap<String, Room> exits;
+    private final ArrayList<Item> items;
+    private final ArrayList<Character> characters;
 
     public Room(String description) {
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
+        characters = new ArrayList<>();
     }
 
 
@@ -43,6 +45,17 @@ public class Room {
             if(item.getName().equals(name)) return item;
         }
         return null;
+    }
+
+    public Character getCharacterByName(String name) {
+        for(Character character : characters) {
+            if(character.getName().equals(name)) return character;
+        }
+        return null;
+    }
+
+    public void addCharacter(Character character) {
+        characters.add(character);
     }
 
     private String getExitString() {
