@@ -23,7 +23,7 @@ public class Person extends Character {
     public String getCurrentOptions() {
         String offer = "";
         if(currentDialogue instanceof DialogueGive g) {
-            offer += getDisplayName() + " offered you: " + g.getItem().getName() + ".\n";
+            offer += getDisplayName() + " offered you: " + g.getItem() + ".\n";
         }
         return offer + "Options: " + String.join(", ", currentDialogue.getOptions());
     }

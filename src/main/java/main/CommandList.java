@@ -1,10 +1,8 @@
 package main;
 
-import Commands.CommandFactory;
-
 import java.util.Collections;
 import java.util.HashSet;
-import Commands.CommandFactory.CommandType;
+import Commands.CommandFactory.Command;
 
 public class CommandList {
 
@@ -13,34 +11,34 @@ public class CommandList {
 
     }
 
-    private static HashSet<CommandType> getDefault() { //commands you can ALWAYS do
-        HashSet<CommandType> commands = new HashSet<>();
+    private static HashSet<Command> getDefault() { //commands you can ALWAYS do
+        HashSet<Command> commands = new HashSet<>();
         Collections.addAll(commands,
-                CommandType.HELP);
+                Command.HELP);
         return commands;
     }
 
-    private static HashSet<CommandType> getWALK() {
-        HashSet<CommandType> commands = getDefault();
+    private static HashSet<Command> getWALK() {
+        HashSet<Command> commands = getDefault();
         Collections.addAll(commands,
-                CommandType.LOOK,
-                CommandType.UNKNOWN,
-                CommandType.TAKE,
-                CommandType.DROP,
-                CommandType.GO,
-                CommandType.QUIT,
-                CommandType.TEST,
-                CommandType.TALK);
+                Command.LOOK,
+                Command.UNKNOWN,
+                Command.TAKE,
+                Command.DROP,
+                Command.GO,
+                Command.QUIT,
+                Command.TEST,
+                Command.TALK);
         return commands;
     }
 
-    private static HashSet<CommandType> getFIGHT() {
-        HashSet<CommandType> commands = getDefault();
+    private static HashSet<Command> getFIGHT() {
+        HashSet<Command> commands = getDefault();
 
         return commands;
     }
 
-    public static HashSet<CommandFactory.CommandType> getCommands(CommandParse.Type type) {
+    public static HashSet<Command> getCommands(CommandParse.Type type) {
         return switch (type) {
             case WALK -> getWALK();
             case FIGHT -> getFIGHT();

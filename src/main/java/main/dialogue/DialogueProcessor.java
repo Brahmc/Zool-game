@@ -25,6 +25,35 @@ public class DialogueProcessor {
                 }
             }
         }
+
+        System.out.println();
+        System.out.println(player.getInfo());
+    }
+
+    private static void getResponse(Person person) {
+        Parser pars = new Parser();
+        boolean answered = false;
+        while (!answered) {
+            System.out.println(person.getCurrentOptions());
+            String answer = pars.getInput().toLowerCase(Locale.ROOT); // hold till answer
+            answered = person.nextDialogue(answer);
+        }
+    }
+
+    private static void giveItem(Player player, Person person) {
+        Parser pars = new Parser();
+        boolean answered = false;
+        while (!answered) {
+            System.out.println(person.getCurrentOptions());
+            String answer = pars.getFirstOnly(); // hold till answer
+            answered = person.nextDialogue(answer);
+
+            if(answer.equals("take")) {
+                Item item = person.getItemOnOffer();
+                person.giveCharacter(player, item);
+                System.out.println("You received: " + item);
+            }
+        }
     }
 
     private static void printText(Person person, Player player) {
@@ -47,32 +76,5 @@ public class DialogueProcessor {
         }
         endString.append("”");
         System.out.println(endString);
-    }
-
-    private static void getResponse(Person person) {
-        Parser pars = new Parser();
-        boolean answered = false;
-        while (!answered) {
-            System.out.println(person.getCurrentOptions());
-            String answer = pars.getInput().toLowerCase(Locale.ROOT); // hold till answer
-            answered = person.nextDialogue(answer);
-        }
-    }
-
-    private static void giveItem(Player player, Person person) {
-        Item item = person.getItemOnOffer();
-        boolean answered = false;
-
-        Parser pars = new Parser();
-        while (!answered) {
-            System.out.println(person.getCurrentOptions());
-
-            String answer = pars.getFirstOnly(); // hold till answer
-            answered = person.nextDialogue(answer);
-            if(answer.equals("take")) {
-                person.giveCharacter(player, item);
-                System.out.println("You received: " + item);
-            }
-        }
     }
 }

@@ -16,12 +16,9 @@ public class DialogueDefault extends Dialogue{
         followUps.put(option, followUp);
     }
 
+    @Override
     public Dialogue getFollowUp(String option) {
         return followUps.get(option);
-    }
-
-    public boolean hasOption(String option) {
-        return (followUps.containsKey(option));
     }
 
     @Override
@@ -31,6 +28,6 @@ public class DialogueDefault extends Dialogue{
 
     @Override
     public boolean hasOptions() {
-        return (followUps.size() != 0);
+        return (followUps.size() > 0);
     }
 }

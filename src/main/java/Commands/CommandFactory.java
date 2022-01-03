@@ -7,30 +7,30 @@ import java.util.List;
 
 public class CommandFactory {
 
-    private static HashMap<String, CommandType> commandMap;
+    private static HashMap<String, Command> commandMap;
 
     public CommandFactory() {
         commandMap = new HashMap<>();
         fill();
     }
 
-    public enum CommandType {
+    public enum Command {
         LOOK, HELP, TAKE, DROP, GO, QUIT, TALK, TEST, UNKNOWN
     }
 
-    private void fill() {   // command words have the same key as the type, this is not a necessity (different languages can be easily added)
-        for(CommandType t : CommandType.values()) {
+    private void fill() {   // command words have the same key as the type, this is not a necessity (different languages can easily be added)
+        for(Command t : Command.values()) {
             commandMap.put(t.toString().toLowerCase(), t);
         }
     }
 
-    public CommandType getCommand(String word) {
-        CommandType c = commandMap.get(word);
-        if(c == null) c = CommandType.UNKNOWN;
+    public Command getCommand(String word) {
+        Command c = commandMap.get(word);
+        if(c == null) return Command.UNKNOWN;
         return c;
     }
 
-    public Command getCommand(CommandType type, List<String> args, HashSet<CommandType> commands) {
+    public Commands.Command getCommand(Command type, List<String> args, HashSet<Command> commands) {
         return switch (type) {
             case LOOK -> new LOOKcommand(args);
             case UNKNOWN -> new UNKNOWNcommand(args);

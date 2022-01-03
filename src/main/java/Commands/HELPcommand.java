@@ -4,11 +4,11 @@ import main.characters.Player;
 
 import java.util.*;
 
-public class HELPcommand extends Command{
+public class HELPcommand extends Command {
     private final HashSet<String> helpWords;
 
-    public HELPcommand(List<String> args, HashSet<CommandFactory.CommandType>
-            commands, HashMap<String, CommandFactory.CommandType> map) {
+    public HELPcommand(List<String> args, HashSet<CommandFactory.Command>
+            commands, HashMap<String, CommandFactory.Command> map) {
         super(args);
         helpWords = getHelpWords(commands, map);
     }
@@ -19,8 +19,8 @@ public class HELPcommand extends Command{
         return false;
     }
 
-    private HashSet<String> getHelpWords(HashSet<CommandFactory.CommandType>
-                                                 commands, HashMap<String, CommandFactory.CommandType> map) {
+    private HashSet<String> getHelpWords(HashSet<CommandFactory.Command>
+                                                 commands, HashMap<String, CommandFactory.Command> map) {
         map.remove("unknown");
         for(String word : map.keySet()) { // remove all commands not in set
             if(!commands.contains(map.get(word))) map.remove(word);
