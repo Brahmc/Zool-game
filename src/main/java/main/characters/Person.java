@@ -1,10 +1,7 @@
 package main.characters;
 
 import main.Item;
-import main.dialogue.Dialogue;
-import main.dialogue.DialogueDefault;
-import main.dialogue.DialogueEnd;
-import main.dialogue.DialogueGive;
+import main.dialogue.*;
 
 public class Person extends Character {
 
@@ -24,30 +21,19 @@ public class Person extends Character {
     }
 
     public String getCurrentOptions() {
-        return "Options: " + String.join(", ", currentDialogue.getOptions());
+        String offer = "";
+        if(currentDialogue instanceof DialogueGive g) {
+            offer += getDisplayName() + " offered you: " + g.getItem().getName() + ".\n";
+        }
+        return offer + "Options: " + String.join(", ", currentDialogue.getOptions());
     }
 
     public boolean nextDialogue(String option) {
-        if(currentDialogue instanceof DialogueEnd e) {
-            currentDialogue = e.getNewDialogue();
+        if(currentDialogue.hasOptions()) {
+            currentDialogue = currentDialogue.getFollowUp(option);
             return true;
         }
-        if(currentDialogue instanceof  DialogueDefault d && d.hasOption(option)) {
-            currentDialogue = d.getFollowUp(option);
-            return true;
-        }
-        if(currentDialogue instanceof  DialogueGive g) {
-            if(option.equals("take")) {
-                currentDialogue = g.getTakeResponse();
-
-                return true;
-            }
-            if(option.equals("refuse")) {
-                currentDialogue = g.getRefuseResponse();
-                return true;
-            }
-        }
-            return false;
+        return false;
     }
 
     public Item getItemOnOffer() {

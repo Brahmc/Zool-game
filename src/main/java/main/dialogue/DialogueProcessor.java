@@ -8,10 +8,10 @@ import main.characters.Player;
 import java.util.Locale;
 import java.util.Scanner;
 
-public interface DialogueProcessor {
-    int PRINTCOLOR = 33;
+public class DialogueProcessor {
+    private final static int PRINT_COLOR = 33;
 
-    static void processDialogue(Person person, Player player) {
+    public static void processDialogue(Person person, Player player) {
         boolean finished = false;
         while(!finished) {
             printText(person, player);
@@ -39,7 +39,7 @@ public interface DialogueProcessor {
                 case "CHARACTER_NAME" -> endString.append(person.getDisplayName());
                 case "ITEM_NAME" -> endString.append(person.getItemOnOffer().getName());
                 default -> {
-                    String COLOR_START = "\u001B[" + PRINTCOLOR + "m";
+                    String COLOR_START = "\u001B[" + PRINT_COLOR + "m";
                     String COLOR_END = "\u001B[0m";
                     endString.append(COLOR_START).append(part).append(COLOR_END);
                 }
@@ -60,12 +60,11 @@ public interface DialogueProcessor {
     }
 
     private static void giveItem(Player player, Person person) {
-        boolean answered = false;
         Item item = person.getItemOnOffer();
+        boolean answered = false;
 
         Parser pars = new Parser();
         while (!answered) {
-            System.out.println(person.getDisplayName() + " offered you: " + item + ".");
             System.out.println(person.getCurrentOptions());
 
             String answer = pars.getFirstOnly(); // hold till answer
@@ -73,7 +72,6 @@ public interface DialogueProcessor {
             if(answer.equals("take")) {
                 person.giveCharacter(player, item);
                 System.out.println("You received: " + item);
-                answered = true;
             }
         }
     }

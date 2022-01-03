@@ -47,4 +47,13 @@ public class DialogueGive extends Dialogue{
     public boolean hasOptions() {
         return true;
     }
+
+    @Override
+    public Dialogue getFollowUp(String option) {
+        return switch (option) {
+            case "take" -> takeResponse;
+            case "refuse" -> refuseResponse;
+            default -> null;
+        };
+    }
 }

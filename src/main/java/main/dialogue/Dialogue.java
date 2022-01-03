@@ -27,4 +27,6 @@ abstract public class Dialogue {
     abstract public HashSet<String> getOptions();
 
     abstract public boolean hasOptions();
+
+    abstract public Dialogue getFollowUp(String option);
 }

@@ -20,7 +20,8 @@ public class DialogueEnd extends Dialogue{
         return true;
     }
 
-    public Dialogue getNewDialogue() {
+    @Override
+    public Dialogue getFollowUp(String option) {
         return newDialogue;
     }
 }

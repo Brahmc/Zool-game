@@ -27,9 +27,9 @@ public class OptionParse {
      * @return true if option1, false if option2
      */
     public static boolean twoChoice(Parser parser, String desc, String op1, String op2) {
-        String choices = desc + " \n Options: " + String.join(", ", op1, op2);
-        System.out.println(choices);
-
+        String question = desc + " \n Options: " + String.join(", ", op1, op2);
+        System.out.println(question);
+        
         while(true) {
             String input = parser.getInput().toLowerCase(Locale.ROOT);
             if(input.equals(op1.toLowerCase(Locale.ROOT))) {
@@ -38,7 +38,7 @@ public class OptionParse {
             if(input.equals(op2.toLowerCase(Locale.ROOT))) {
                 return false;
             }
-            System.out.println(choices);
+            System.out.println(question);
         }
     }
 }
