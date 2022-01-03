@@ -19,16 +19,8 @@ public class DialogueGive extends Dialogue{
         this.takeResponse = takeResponse;
     }
 
-    public Dialogue getTakeResponse() {
-        return takeResponse;
-    }
-
     public void setRefuseResponse(Dialogue refuseResponse) {
         this.refuseResponse = refuseResponse;
-    }
-
-    public Dialogue getRefuseResponse() {
-        return refuseResponse;
     }
 
     public Item getItem() {

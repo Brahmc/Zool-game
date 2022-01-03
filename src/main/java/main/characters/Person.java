@@ -28,12 +28,14 @@ public class Person extends Character {
         return offer + "Options: " + String.join(", ", currentDialogue.getOptions());
     }
 
+    /**
+     * @return true if option is valid
+     */
     public boolean nextDialogue(String option) {
-        if(currentDialogue.hasOptions()) {
-            currentDialogue = currentDialogue.getFollowUp(option);
-            return true;
-        }
-        return false;
+        Dialogue followup = currentDialogue.getFollowUp(option);
+        if(followup == null) return false; // option not valid
+        currentDialogue = followup;
+        return true;
     }
 
     public Item getItemOnOffer() {
