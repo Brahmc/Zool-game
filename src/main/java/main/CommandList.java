@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import Commands.CommandFactory.CommandType;
 
-public class CommandList implements CmdList{
+public class CommandList {
 
 
     public CommandList() {

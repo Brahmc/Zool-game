@@ -1,6 +1,6 @@
 package Commands;
 
-import main.Player;
+import main.characters.Player;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package Commands;
 
-import main.Character;
+import main.characters.Character;
 import main.dialogue.DialogueProcessor;
-import main.Person;
-import main.Player;
+import main.characters.Person;
+import main.characters.Player;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class TALKcommand extends Command{
 
         String characterName = getArgs().get(0);
         Character character = player.getCurrentRoom()
-                .getCharacterByName(characterName);
+                                    .getCharacterByName(characterName);
         if(character == null) {
             System.out.println("There is no such person in the room!");
             return false;

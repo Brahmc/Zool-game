@@ -1,5 +1,6 @@
-package main;
+package main.characters;
 
+import main.Item;
 import main.dialogue.Dialogue;
 import main.dialogue.DialogueDefault;
 import main.dialogue.DialogueEnd;
@@ -23,7 +24,7 @@ public class Person extends Character {
     }
 
     public String getCurrentOptions() {
-        return currentDialogue.getOptions();
+        return "Options: " + String.join(", ", currentDialogue.getOptions());
     }
 
     public boolean nextDialogue(String option) {
@@ -31,12 +32,9 @@ public class Person extends Character {
             currentDialogue = e.getNewDialogue();
             return true;
         }
-        if(currentDialogue instanceof  DialogueDefault d) {
-            if(d.hasOption(option)) {
-                currentDialogue = d.getFollowUp(option);
-                return true;
-            }
-            return false;
+        if(currentDialogue instanceof  DialogueDefault d && d.hasOption(option)) {
+            currentDialogue = d.getFollowUp(option);
+            return true;
         }
         if(currentDialogue instanceof  DialogueGive g) {
             if(option.equals("take")) {
@@ -59,8 +57,8 @@ public class Person extends Character {
         return null;
     }
 
-    public void givePlayer(Player player, Item item) {
-        player.getInventory().add(item);
+    public void giveCharacter(Character character, Item item) {
+        character.getInventory().add(item);
         getInventory().remove(item);
     }
 }

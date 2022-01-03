@@ -1,6 +1,7 @@
 package main.dialogue;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class DialogueDefault extends Dialogue{
 
@@ -24,8 +25,8 @@ public class DialogueDefault extends Dialogue{
     }
 
     @Override
-    public String getOptions() {
-        return "Options: " +String.join(", ", followUps.keySet());
+    public HashSet<String> getOptions() {
+        return new HashSet<>(followUps.keySet());
     }
 
     @Override

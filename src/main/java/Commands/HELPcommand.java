@@ -1,9 +1,7 @@
 package Commands;
 
-import main.Parser;
-import main.Player;
+import main.characters.Player;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class HELPcommand extends Command{

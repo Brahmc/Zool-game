@@ -1,6 +1,8 @@
 package main;
 
 import Commands.Command;
+import main.characters.Person;
+import main.characters.Player;
 import main.dialogue.DialogueDefault;
 import main.dialogue.DialogueEnd;
 import main.dialogue.DialogueGive;
@@ -96,7 +98,6 @@ public class Game {
         name = new DialogueGive("""
                 It's really you __PLAYER_NAME__! I can't believe the hero finally showed up!
                 Please, let met give you this __ITEM_NAME__ it's not much but I want to help out wherever I can!
-               
                 """, new Item("sword", "iron sword", 3, 6));
         guild = new DialogueDefault("You should check out the adventurers guild. I'm sure they can help you out!");
         end= new DialogueEnd("You are our only hope __PLAYER_NAME__..", guild);

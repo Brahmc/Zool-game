@@ -2,8 +2,8 @@ package main.dialogue;
 
 import main.Item;
 import main.Parser;
-import main.Person;
-import main.Player;
+import main.characters.Person;
+import main.characters.Player;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -12,18 +12,19 @@ public interface DialogueProcessor {
     int PRINTCOLOR = 33;
 
     static void processDialogue(Person person, Player player) {
-        printText(person, player);
-        if(!person.getDialogue().hasOptions()) return; // don't to continue if dialogue is text only
-
-        switch (person.getDialogue().getType()) {
-            case DEFAULT -> getResponse(person);
-            case GIVE -> giveItem(player, person);
-            case END -> {    // loads next dialogue but doesn't ask any new questions and ends the loop.
-                person.nextDialogue("");
-                return;
+        boolean finished = false;
+        while(!finished) {
+            printText(person, player);
+            if(!person.getDialogue().hasOptions()) return; // don't to continue if dialogue is text only
+            switch (person.getDialogue().getType()) {
+                case DEFAULT -> getResponse(person);
+                case GIVE -> giveItem(player, person);
+                case END -> {   // loads next dialogue but doesn't ask any new questions and ends the loop.
+                    person.nextDialogue("");
+                    finished = true;
+                }
             }
         }
-         processDialogue(person, player); //run method again for next dialogue
     }
 
     private static void printText(Person person, Player player) {
@@ -53,8 +54,7 @@ public interface DialogueProcessor {
         boolean answered = false;
         while (!answered) {
             System.out.println(person.getCurrentOptions());
-            String answer = pars.getInput()
-                                .toLowerCase(Locale.ROOT); // hold till answer
+            String answer = pars.getInput().toLowerCase(Locale.ROOT); // hold till answer
             answered = person.nextDialogue(answer);
         }
     }
@@ -71,7 +71,7 @@ public interface DialogueProcessor {
             String answer = pars.getFirstOnly(); // hold till answer
             answered = person.nextDialogue(answer);
             if(answer.equals("take")) {
-                person.givePlayer(player, item);
+                person.giveCharacter(player, item);
                 System.out.println("You received: " + item);
                 answered = true;
             }

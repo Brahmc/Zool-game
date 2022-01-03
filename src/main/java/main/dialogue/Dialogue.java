@@ -1,6 +1,8 @@
 package main.dialogue;
 
 
+import java.util.HashSet;
+
 abstract public class Dialogue {
     private final String text;
     private final Type type;
@@ -15,14 +17,14 @@ abstract public class Dialogue {
     }
 
     public String getText() {
-        return text;
+        return text.trim();
     }
 
     public Type getType() {
         return type;
     }
 
-    abstract public String getOptions();
+    abstract public HashSet<String> getOptions();
 
     abstract public boolean hasOptions();
 }

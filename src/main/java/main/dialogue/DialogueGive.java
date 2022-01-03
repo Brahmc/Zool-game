@@ -2,6 +2,8 @@ package main.dialogue;
 
 import main.Item;
 
+import java.util.HashSet;
+
 public class DialogueGive extends Dialogue{
 
     private final Item item;
@@ -34,8 +36,11 @@ public class DialogueGive extends Dialogue{
     }
 
     @Override
-    public String getOptions() {
-        return "Options: take, refuse";
+    public HashSet<String> getOptions() {
+        HashSet<String> options = new HashSet<>();
+        options.add("take");
+        options.add("refuse");
+        return options;
     }
 
     @Override

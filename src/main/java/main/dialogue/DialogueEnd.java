@@ -1,5 +1,7 @@
 package main.dialogue;
 
+import java.util.HashSet;
+
 public class DialogueEnd extends Dialogue{
     private final Dialogue newDialogue;
 
@@ -9,7 +11,7 @@ public class DialogueEnd extends Dialogue{
     }
 
     @Override
-    public String getOptions() {
+    public HashSet<String> getOptions() {
         return null;
     }
 

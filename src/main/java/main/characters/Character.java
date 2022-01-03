@@ -1,4 +1,6 @@
-package main;
+package main.characters;
+
+import main.Item;
 
 import java.util.ArrayList;
 

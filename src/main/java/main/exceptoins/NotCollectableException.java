@@ -1,4 +1,4 @@
-package main.Exceptoins;
+package main.exceptoins;
 
 public class NotCollectableException extends Exception{
 

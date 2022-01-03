@@ -1,8 +1,8 @@
 package Commands;
 
-import main.Exceptoins.NoItemException;
-import main.Exceptoins.NotCollectableException;
-import main.Player;
+import main.exceptoins.NoItemException;
+import main.exceptoins.NotCollectableException;
+import main.characters.Player;
 
 import java.util.List;
 

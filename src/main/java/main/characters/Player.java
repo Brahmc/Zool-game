@@ -1,7 +1,9 @@
-package main;
+package main.characters;
 
-import main.Exceptoins.NoItemException;
-import main.Exceptoins.NotCollectableException;
+import main.Item;
+import main.Room;
+import main.exceptoins.NoItemException;
+import main.exceptoins.NotCollectableException;
 
 
 public class Player extends Character{
