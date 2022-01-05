@@ -10,6 +10,11 @@ public class QUITcommand extends Command{
     }
 
     @Override
+    public String getDescription() {
+        return "Leave the game.";
+    }
+
+    @Override
     public boolean execute(Player player) {
         System.out.println("Thanks for playing " + player.getName() + "!");
         return true;

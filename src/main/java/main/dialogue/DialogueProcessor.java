@@ -41,6 +41,7 @@ public class DialogueProcessor {
     }
 
     private static void giveItem(Player player, Person person) {
+        Item item = person.getItemOnOffer();
         Parser pars = new Parser();
         boolean answered = false;
         while (!answered) {
@@ -49,7 +50,6 @@ public class DialogueProcessor {
             answered = person.nextDialogue(answer);
 
             if(answer.equals("take")) {
-                Item item = person.getItemOnOffer();
                 person.giveCharacter(player, item);
                 System.out.println("You received: " + item);
             }

@@ -12,11 +12,15 @@ public class GOcommand extends Command{
     }
 
     @Override
+    public String getDescription() {
+        return "Go to one of the available exits.";
+    }
+
+    @Override
     public boolean execute(Player player) {
         if(getArgs().size() == 0) {
             System.out.println("Go where?");
-        }
-        if(!player.goRoom(getArgs().get(0))) {
+        }else if(!player.goRoom(getArgs().get(0))) {
             System.out.println("That's not a direction you can go!");
         } else {
             System.out.println(player.getInfo());

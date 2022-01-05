@@ -16,5 +16,7 @@ abstract public class Command {
         return args;
     }
 
+    abstract public String getDescription();
+
     abstract public boolean execute(Player player);
 }

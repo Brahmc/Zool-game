@@ -12,6 +12,11 @@ public class DROPcommand extends Command {
     }
 
     @Override
+    public String getDescription() {
+        return "Drops an item in the current room.";
+    }
+
+    @Override
     public boolean execute(Player player) {
         if(getArgs().size() == 0) {
             System.out.println("Drop what?");

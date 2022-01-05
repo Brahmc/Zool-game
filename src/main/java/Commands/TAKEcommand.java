@@ -13,6 +13,11 @@ public class TAKEcommand extends Command{
     }
 
     @Override
+    public String getDescription() {
+        return "Pick up an item in the current room.";
+    }
+
+    @Override
     public boolean execute(Player player) {
         if(getArgs().size() == 0) {
             System.out.println("Take what?");

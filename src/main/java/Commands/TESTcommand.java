@@ -10,6 +10,11 @@ public class TESTcommand extends Command{
     }
 
     @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
     public boolean execute(Player player) {
 
         return false;

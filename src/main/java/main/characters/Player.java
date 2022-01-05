@@ -5,6 +5,8 @@ import main.Room;
 import main.exceptoins.NoItemException;
 import main.exceptoins.NotCollectableException;
 
+import java.util.ArrayList;
+
 
 public class Player extends Character{
     private Room currentRoom;
@@ -36,10 +38,6 @@ public class Player extends Character{
         currentRoom.removeItem(item);
     }
 
-    public String getInfo() {
-        return "You are currently " + currentRoom.getLongDescription();
-    }
-
     public boolean drop(String name) {
         for(Item item : getInventory()) {
             if(item.getName().equals(name)) {
@@ -49,6 +47,19 @@ public class Player extends Character{
             }
         }
         return false;
+    }
+
+    public String seeInventory() {
+        ArrayList<String> itemDesc = new ArrayList<>();
+        for(Item item : getInventory()) {
+            itemDesc.add(item.toString());
+        }
+        if(itemDesc.isEmpty()) return "You don't have any items!";
+        return getDisplayName() + "'s inventory:\n" + String.join("\n", itemDesc);
+    }
+
+    public String getInfo() {
+        return "You are currently " + currentRoom.getLongDescription();
     }
 
     public boolean goRoom(String direction) {

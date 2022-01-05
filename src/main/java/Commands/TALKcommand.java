@@ -14,6 +14,11 @@ public class TALKcommand extends Command{
     }
 
     @Override
+    public String getDescription() {
+        return "Talk to Characters in the current room.";
+    }
+
+    @Override
     public boolean execute(Player player) {
         if(getArgs().size() == 0) {
             System.out.println("Talk to who?");

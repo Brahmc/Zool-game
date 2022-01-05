@@ -30,7 +30,7 @@ public class Character {
         return colorString + name + "\u001B[0m";
     }
 
-    public ArrayList<Item> getInventory() {
+    protected ArrayList<Item> getInventory() {
         return inventory;
     }
 }
