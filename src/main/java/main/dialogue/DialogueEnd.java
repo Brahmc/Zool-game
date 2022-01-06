@@ -1,6 +1,6 @@
 package main.dialogue;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class DialogueEnd extends Dialogue{
     private final Dialogue newDialogue;
@@ -11,17 +11,21 @@ public class DialogueEnd extends Dialogue{
     }
 
     @Override
-    public HashSet<String> getOptions() {
-        return null;
+    public ArrayList<String> getOptions() {
+        return new ArrayList<>();
     }
 
     @Override
-    public boolean hasOptions() {
+    public boolean hasFollowUp() {
         return true;
     }
 
     @Override
-    public Dialogue getFollowUp(String option) {
+    protected Dialogue getFollowUp(String option) {
         return newDialogue;
     }
+    public Dialogue getFollowUp(int num) {
+        return newDialogue;
+    }
+
 }

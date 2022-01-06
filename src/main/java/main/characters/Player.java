@@ -1,6 +1,6 @@
 package main.characters;
 
-import main.Item;
+import main.items.Item;
 import main.Room;
 import main.exceptoins.NoItemException;
 import main.exceptoins.NotCollectableException;

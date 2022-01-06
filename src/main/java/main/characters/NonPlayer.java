@@ -1,13 +1,15 @@
 package main.characters;
 
-import main.Item;
+import main.items.Item;
 import main.dialogue.*;
 
-public class Person extends Character {
+import java.util.ArrayList;
+
+public class NonPlayer extends Character {
 
     private Dialogue currentDialogue;
 
-    public Person(String name) {
+    public NonPlayer(String name) {
         super(name);
         currentDialogue = null;
     }
@@ -25,14 +27,21 @@ public class Person extends Character {
         if(currentDialogue instanceof DialogueGive g) {
             offer += getDisplayName() + " offered you: " + g.getItem() + ".\n";
         }
-        return offer + "Options: " + String.join(", ", currentDialogue.getOptions());
+
+        ArrayList<String> formatted = new ArrayList<>();
+        int num = 1;
+        for(String option : currentDialogue.getOptions()) {
+            formatted.add(num + " (" + option + ")");
+            num++;
+        }
+        return offer + "Options: " + String.join(", ", formatted);
     }
 
     /**
      * @return true if option is valid
      */
-    public boolean nextDialogue(String option) {
-        Dialogue followup = currentDialogue.getFollowUp(option);
+    public boolean nextDialogue(int option) {
+        Dialogue followup = currentDialogue.getFollowUp(option - 1);
         if(followup == null) return false; // option not valid
         currentDialogue = followup;
         return true;
@@ -45,8 +54,11 @@ public class Person extends Character {
         return null;
     }
 
-    public void giveCharacter(Character character, Item item) {
-        character.getInventory().add(item);
+    public String giveCharacter(Character character, Item item) {
+        if(!getInventory().contains(item)) return "I don't have that item!";
+
+        character.giveItem(item);
         getInventory().remove(item);
+        return getDisplayName() + " gave you: " + item;
     }
 }

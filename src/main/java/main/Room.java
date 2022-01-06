@@ -1,6 +1,7 @@
 package main;
 
 import main.characters.Character;
+import main.items.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;

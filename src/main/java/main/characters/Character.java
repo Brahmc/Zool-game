@@ -1,6 +1,6 @@
 package main.characters;
 
-import main.Item;
+import main.items.Item;
 
 import java.util.ArrayList;
 
@@ -32,5 +32,9 @@ public class Character {
 
     protected ArrayList<Item> getInventory() {
         return inventory;
+    }
+
+    public void giveItem(Item item) {
+        inventory.add(item);
     }
 }

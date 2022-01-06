@@ -1,5 +1,6 @@
 package main.dialogue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -17,17 +18,17 @@ public class DialogueDefault extends Dialogue{
     }
 
     @Override
-    public Dialogue getFollowUp(String option) {
+    protected Dialogue getFollowUp(String option) {
         return followUps.get(option);
     }
 
     @Override
-    public HashSet<String> getOptions() {
-        return new HashSet<>(followUps.keySet());
+    public ArrayList<String> getOptions() {
+        return new ArrayList<>(followUps.keySet());
     }
 
     @Override
-    public boolean hasOptions() {
+    public boolean hasFollowUp() {
         return (followUps.size() > 0);
     }
 }

@@ -1,11 +1,12 @@
 package main;
 
 import Commands.Command;
-import main.characters.Person;
+import main.characters.NonPlayer;
 import main.characters.Player;
 import main.dialogue.DialogueDefault;
 import main.dialogue.DialogueEnd;
 import main.dialogue.DialogueGive;
+import main.items.Item;
 
 public class Game {
     private final CommandParse parser;
@@ -85,7 +86,7 @@ public class Game {
 
         welcome = new DialogueDefault("Welcome to the adventurers guild sir, how can I help you?");  // -> demonlord, noHelp
         demonlord = new DialogueDefault("""
-                Shh.. don't say that out loud, that demon has been terrorizing the town for years.
+                Shh.. don't say that name out loud, that demon has been terrorizing the town for years.
                 The only hope we have left for the hero defeat him. Rumor is he showed up in town recently!"""); // -> thatsMe, hero
         noHelp = new DialogueEnd("Have a good day Sir!", welcome);
         thatsMe = new DialogueDefault(""" 
@@ -95,25 +96,28 @@ public class Game {
         hero = new DialogueDefault("""
                 Yes, the hero the only one strong enough to defeat the demon lord! Wait a minute..
                 you look an awful lot like him.."""); // -> name
+
+        Item sword = new Item("sword", "iron sword", 3, 6);
         name = new DialogueGive("""
                 It's really you __PLAYER_NAME__! I can't believe the hero finally showed up!
                 Please, let met give you this __ITEM_NAME__ it's not much but I want to help out wherever I can!
-                """, new Item("sword", "iron sword", 3, 6));
+                """, sword);
         guild = new DialogueDefault("You should check out the adventurers guild. I'm sure they can help you out!");
         end= new DialogueEnd("You are our only hope __PLAYER_NAME__..", guild);
         endRefuse = new DialogueEnd("I guess a real hero wouldn't need an iron sword..", guild);
 
-        welcome.addOption("demon lord", demonlord);
-        welcome.addOption("not now", noHelp);
-        demonlord.addOption("that's me", thatsMe);
-        demonlord.addOption("hero", hero);
-        thatsMe.addOption("name", name);
-        hero.addOption("really", name);
+        welcome.addOption("Have you heard about the demon lord...", demonlord);
+        welcome.addOption("Not now!", noHelp);
+        demonlord.addOption("That's me!!", thatsMe);
+        demonlord.addOption("Hero?", hero);
+        thatsMe.addOption("Give name.", name);
+        hero.addOption("Really??", name);
         name.setTakeResponse(end);
         name.setRefuseResponse(endRefuse);
 
 
-        Person alan = new Person("Alan");
+        NonPlayer alan = new NonPlayer("Alan");
+        alan.giveItem(sword);
         alan.setColor(96);
         alan.setCurrentDialogue(welcome);
 

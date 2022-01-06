@@ -1,8 +1,8 @@
 package main.dialogue;
 
-import main.Item;
+import main.items.Item;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class DialogueGive extends Dialogue{
 
@@ -28,20 +28,20 @@ public class DialogueGive extends Dialogue{
     }
 
     @Override
-    public HashSet<String> getOptions() {
-        HashSet<String> options = new HashSet<>();
+    public ArrayList<String> getOptions() {
+        ArrayList<String> options = new ArrayList<>();
         options.add("take");
         options.add("refuse");
         return options;
     }
 
     @Override
-    public boolean hasOptions() {
+    public boolean hasFollowUp() {
         return true;
     }
 
     @Override
-    public Dialogue getFollowUp(String option) {
+    protected Dialogue getFollowUp(String option) {
         return switch (option) {
             case "take" -> takeResponse;
             case "refuse" -> refuseResponse;

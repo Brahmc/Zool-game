@@ -2,7 +2,7 @@ package Commands;
 
 import main.characters.Character;
 import main.dialogue.DialogueProcessor;
-import main.characters.Person;
+import main.characters.NonPlayer;
 import main.characters.Player;
 
 import java.util.List;
@@ -32,11 +32,11 @@ public class TALKcommand extends Command{
             System.out.println("There is no such person in the room!");
             return false;
         }
-        if(!(character instanceof Person person)) {
+        if(!(character instanceof NonPlayer nonPlayer)) {
             System.out.println("You can't talk to that character!");
             return false;
         }
-        DialogueProcessor.processDialogue(person, player);
+        DialogueProcessor.processDialogue(nonPlayer, player);
         return false;
     }
 }

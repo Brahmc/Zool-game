@@ -1,7 +1,7 @@
 package main.dialogue;
 
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 abstract public class Dialogue {
     private final String text;
@@ -24,9 +24,15 @@ abstract public class Dialogue {
         return type;
     }
 
-    abstract public HashSet<String> getOptions();
+    abstract public ArrayList<String> getOptions();
 
-    abstract public boolean hasOptions();
+    abstract public boolean hasFollowUp();
 
-    abstract public Dialogue getFollowUp(String option);
+    abstract protected Dialogue getFollowUp(String option);
+
+    public Dialogue getFollowUp(int num) {
+        ArrayList<String> options = getOptions();
+        if(options == null || options.size() < num || num < 0) return null;
+        return getFollowUp(options.get(num));
+    }
 }

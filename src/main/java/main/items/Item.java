@@ -1,4 +1,4 @@
-package main;
+package main.items;
 
 public class Item {
     private String name;
