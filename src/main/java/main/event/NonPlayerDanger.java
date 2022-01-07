@@ -9,18 +9,16 @@ import main.characters.Player;
 
 public class NonPlayerDanger extends Event{
 
-    private Player player;
     private Character hostile;
 
 
-    public NonPlayerDanger(String message, Player player, Character hostile) {
+    public NonPlayerDanger(String message, Character hostile) {
         super(message);
-        this.player = player;
         this.hostile = hostile;
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(Player player) {
         Parser pars = new Parser();
         if(OptionParse.twoChoice(pars, "", "intervene", "back")) {
             FightModule fight = new FightModule(player, hostile);

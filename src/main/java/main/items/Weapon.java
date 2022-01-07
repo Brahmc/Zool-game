@@ -4,20 +4,15 @@ import main.characters.Player;
 import main.exceptoins.IllegalItemException;
 import main.exceptoins.NoItemException;
 
-public class Weapon extends Item{
-    final private int DAMAGE;
+public class Weapon extends ItemWithLevel{
 
-    public Weapon(String name, String description, double weight, int damage) {
-        super(name, description, weight);
-        this.DAMAGE = damage;
+    public Weapon(String name, String description, double weight, int level) throws IllegalArgumentException {
+        super(name, description, weight, level);
     }
 
     @Override
     public void use(Player player) throws NoItemException, IllegalItemException {
-        player.equipWeaponByName(getName());
-    }
-
-    public int getDamage() {
-        return DAMAGE;
+        super.use(player);
+        player.equipItem(this);
     }
 }

@@ -15,7 +15,7 @@ public class Room {
     private final HashMap<String, Room> exits;
     private final ArrayList<Item> items;
     private final ArrayList<NonPlayer> characters;
-    private final Event event;
+    private Event event;
 
     public Room(String description) {
         this.description = description;
@@ -41,14 +41,23 @@ public class Room {
         return exits.get(direction);
     }
 
+    /**
+     * @param item item to add to room
+     */
     public void addItem(Item item) {
         items.add(item);
     }
 
+    /**
+     * @param item item to removed from room
+     */
     public void removeItem(Item item) {
         items.remove(item);
     }
 
+    /**
+     * @param name name of item
+     */
     public Item getItemByName(String name) {
         for(Item item : items) {
             if(item.getName().equals(name)) return item;
@@ -77,11 +86,12 @@ public class Room {
         return returnString.toString();
     }
 
-    public boolean executeEvent() {
-        if(event != null) {
-            return event.execute();
-        }
-        return false;
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public Event getEvent() {
+        return event;
     }
 
     public String getLongDescription() {

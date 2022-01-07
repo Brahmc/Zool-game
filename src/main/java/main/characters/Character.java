@@ -40,6 +40,15 @@ public class Character {
         this.weapon = weapon;
     }
 
+    protected Weapon getWeapon() {
+        if(weapon == null || !inventory.contains(weapon)) return DEFAULT_WEAPON;
+        return weapon;
+    }
+
+    protected Armor getArmor() {
+        return armor;
+    }
+
     protected ArrayList<Item> getInventory() {
         return inventory;
     }
@@ -62,12 +71,8 @@ public class Character {
     }
 
     public int getDamage() {
-        return getWeapon().getDamage();
-    }
 
-    private Weapon getWeapon() {
-        if(weapon == null || !inventory.contains(weapon)) return DEFAULT_WEAPON;
-        return weapon;
+        return getWeapon().getLevel();
     }
 
     public String getDisplayHealth() {

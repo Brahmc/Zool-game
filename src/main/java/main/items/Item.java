@@ -34,7 +34,10 @@ public class Item {
     }
 
     public String toString() {
-        return getName() + " (" + DESCRIPTION + ") (" + WEIGHT + "kg)";
+        String string = getName();
+        if(!DESCRIPTION.isEmpty()) string +=  " (" + DESCRIPTION + ")";
+        if(WEIGHT != 0 ) string += " (" + WEIGHT + "kg)";
+        return string;
     }
 
     public void use(Player player) throws NoItemException, IllegalItemException {

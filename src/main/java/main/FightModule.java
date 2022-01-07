@@ -2,7 +2,6 @@ package main;
 
 import Commands.Command;
 import main.characters.Character;
-import main.characters.HostileNonPlayer;
 import main.characters.Player;
 
 public class FightModule {
@@ -41,6 +40,7 @@ public class FightModule {
     }
 
     private void enemyAttack() {
+        double damage = enemy.getDamage();
 
     }
 

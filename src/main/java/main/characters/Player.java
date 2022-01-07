@@ -1,5 +1,6 @@
 package main.characters;
 
+import main.event.Event;
 import main.exceptoins.IllegalItemException;
 import main.items.Armor;
 import main.items.Item;
@@ -53,22 +54,22 @@ public class Player extends Character{
        return false;
     }
 
-    public void equipWeaponByName(String name) throws IllegalItemException, NoItemException {
-        Item item = getItemByName(name);
+    public void equipItem(Item item) throws IllegalItemException, NoItemException {
         if(item == null) {
             throw new NoItemException("There is no such item in your inventory!");
         }
-        if(!(item instanceof Weapon weapon)) throw new IllegalItemException("That item is not a weapon!");
-        setWeapon(weapon);
+        if(item instanceof Weapon weapon) setWeapon(weapon);
+        else if(item instanceof Armor armor)
+
+        throw new IllegalItemException("That item can't be equipped!");
     }
 
-    public void equipArmorByName(String name) throws IllegalItemException, NoItemException {
+    public void useItemByName(String name) throws NoItemException, IllegalItemException {
         Item item = getItemByName(name);
         if(item == null) {
             throw new NoItemException("There is no such item in your inventory!");
         }
-        if(!(item instanceof Armor Armor)) throw new IllegalItemException("That item is not armor!");
-
+        item.use(this);
     }
 
     private Item getItemByName(String name) {
@@ -88,8 +89,15 @@ public class Player extends Character{
         for(Item item : getInventory()) {
             itemDesc.add(item.toString());
         }
-        if(itemDesc.isEmpty()) return "You don't have any items!";
-        return getDisplayName() + "'s inventory:\n" + String.join("\n", itemDesc);
+        String invString = "Equipped: \nWeapon: " + getWeapon() + "\nArmor: ";
+        if(getArmor() == null) invString += "No armor equipped";
+        else invString += getArmor();
+        invString += "\n\n";
+
+        if(itemDesc.isEmpty()) invString += "You don't have any items!";
+        else invString +=String.join("\n", itemDesc);
+
+        return invString;
     }
 
     public String getInfo() {
@@ -120,7 +128,13 @@ public class Player extends Character{
         return true;
     }
 
-    public boolean triggerRoomEvent() {
-        return currentRoom.executeEvent();
+    /**
+     * Triggers event if room has one.
+     * @return true if event ends game
+     */
+    public boolean triggerRoomEvent() { //
+        Event roomEvent = currentRoom.getEvent();
+        if(roomEvent == null) return false;
+        return roomEvent.execute(this);
     }
 }

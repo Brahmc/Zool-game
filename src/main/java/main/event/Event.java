@@ -1,16 +1,22 @@
 package main.event;
 
+import main.characters.Player;
+
 abstract public class Event {
 
-    String message;
+    private final String MESSAGE;
 
     public Event(String message) {
-        this.message = message;
+        this.MESSAGE = message;
+    }
+
+    protected String getMessage() {
+        return MESSAGE;
     }
 
     /**
-     *
-     * @return true when player quits
+     * Executes custom event.
+     * @return true if event ends game
      */
-    abstract public boolean execute();
+    abstract public boolean execute(Player player);
 }

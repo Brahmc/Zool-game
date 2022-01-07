@@ -1,11 +1,14 @@
 package main;
 
 import Commands.Command;
+import main.characters.Character;
 import main.characters.NonPlayer;
 import main.characters.Player;
 import main.dialogue.DialogueDefault;
 import main.dialogue.DialogueEnd;
 import main.dialogue.DialogueGive;
+import main.event.NonPlayerDanger;
+import main.event.StartFight;
 import main.items.Item;
 
 public class Game {
@@ -60,6 +63,7 @@ public class Game {
 
         townHall.addExit("west", villageCenter);
         backAlley.addExit("south", villageCenter);
+        backAlley.setEvent(new StartFight("A man wants to fight you!", new NonPlayer("Bob")));
         adventurersGuild.addExit("east", villageCenter);
 
         gate.addExit("north", villageCenter);

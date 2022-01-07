@@ -18,6 +18,7 @@ public class INVcommand extends Command{
 
     @Override
     public boolean execute(Player player) {
+        System.out.println(player.getDisplayName() + "'s inventory:");
         System.out.println(player.seeInventory());
         return false;
     }
