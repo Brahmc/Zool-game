@@ -1,5 +1,6 @@
 package main.characters;
 
+import main.items.Armor;
 import main.items.Item;
 import main.items.Weapon;
 
@@ -10,6 +11,7 @@ public class Character {
     private int color; // color of character's name when mentioned (ASCII values)
     private double health; //all characters start with 100 health
     private Weapon weapon;
+    private Armor armor;
     private final Weapon DEFAULT_WEAPON;
     private final ArrayList<Item> inventory;
 
@@ -17,7 +19,7 @@ public class Character {
         this.name = name;
         color = 0;
         health = 100;
-        DEFAULT_WEAPON = new Weapon("fists", "", 0, 1);
+        DEFAULT_WEAPON = new Weapon("fists", "no weapon equipped", 0, 1);
         inventory = new ArrayList<>();
     }
 
@@ -34,7 +36,7 @@ public class Character {
         return colorString + name + "\u001B[0m";
     }
 
-    public void setWeapon(Weapon weapon) {
+    protected void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
 
@@ -51,13 +53,19 @@ public class Character {
     }
 
     public void takeDamage(double amount) {
-        health += Math.round(amount*100)/100.; // round up to 2 decimals
+        int damageReduction = armor.getLevel() * 8; // percentage the amount of damage gets reduced by (depending on armor level)
+        double damage = amount * (100 - damageReduction); // amount of damage character takes
+        health += Math.round(damage*100)/100.; // round up to 2 decimals
         // make sure health stays between 0 and 100
         if(health < 0) health = 0;
         if(health > 100) health = 100;
     }
 
-    protected Weapon getWeapon() {
+    public int getDamage() {
+        return getWeapon().getDamage();
+    }
+
+    private Weapon getWeapon() {
         if(weapon == null || !inventory.contains(weapon)) return DEFAULT_WEAPON;
         return weapon;
     }

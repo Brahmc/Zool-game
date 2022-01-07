@@ -29,7 +29,8 @@ public class CommandList {
                 Command.QUIT,
                 Command.TEST,
                 Command.TALK,
-                Command.INV);
+                Command.INV,
+                Command.BACK);
         return commands;
     }
 

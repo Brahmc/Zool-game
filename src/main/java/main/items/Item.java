@@ -1,20 +1,24 @@
 package main.items;
 
+import main.characters.Player;
+import main.exceptoins.IllegalItemException;
+import main.exceptoins.NoItemException;
+
 public class Item {
     private String name;
-    private String description;
-    private double weight;
+    private final String DESCRIPTION;
+    private final double WEIGHT;
     private boolean isCollectable;
 
-    public Item(String name, String description, double weight, boolean isCollectable) {
+    public Item(String name, String DESCRIPTION, double weight, boolean isCollectable) {
         this.name = name;
-        this.weight = weight;
-        this.description = description;
+        this.WEIGHT = weight;
+        this.DESCRIPTION = DESCRIPTION;
         this.isCollectable = isCollectable;
     }
 
-    public Item(String name, String description, double weight) {
-        this(name, description, weight, true);
+    public Item(String name, String DESCRIPTION, double weight) {
+        this(name, DESCRIPTION, weight, true);
     }
 
     public String getName() {
@@ -30,6 +34,10 @@ public class Item {
     }
 
     public String toString() {
-        return getName() + " (" + description + ") (" + weight + "kg)";
+        return getName() + " (" + DESCRIPTION + ") (" + WEIGHT + "kg)";
+    }
+
+    public void use(Player player) throws NoItemException, IllegalItemException {
+
     }
 }
