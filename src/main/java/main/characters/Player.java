@@ -10,10 +10,12 @@ import java.util.ArrayList;
 
 public class Player extends Character{
     private Room currentRoom;
+    private ArrayList<Room> roomHistory;
     private double maxWeight;
 
     public Player(String name) {
         super(name);
+        roomHistory = new ArrayList<>();
         maxWeight = 25;
         currentRoom = null;
     }
@@ -24,6 +26,7 @@ public class Player extends Character{
 
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
+        roomHistory.add(currentRoom);
     }
 
     public void takeFromRoom(String name) throws NoItemException, NotCollectableException {
@@ -65,7 +68,19 @@ public class Player extends Character{
     public boolean goRoom(String direction) {
         Room nextRoom = currentRoom.getExit(direction);
         if(nextRoom == null) return false;
-        currentRoom = nextRoom;
+        setCurrentRoom(nextRoom);
         return true;
+    }
+
+    public boolean goBackRoom() {
+        int savedRooms = roomHistory.size();
+        if(savedRooms <= 0) return false;
+        currentRoom = roomHistory.get(savedRooms - 2);
+        roomHistory.remove(savedRooms -1); // remove last room
+        return true;
+    }
+
+    public boolean triggerRoomEvent() {
+        return currentRoom.executeEvent();
     }
 }

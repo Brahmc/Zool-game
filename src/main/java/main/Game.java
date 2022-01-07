@@ -77,8 +77,8 @@ public class Game {
         demonCastle.addExit("south", farmLand);
 
         // spawn items
-        townHall.addItem(new Item("sword", "stone sword", 1.2, 3));
-        townHall.addItem(new Item("bookshelf", "wooden bookshelf", 100, 100, false));
+        townHall.addItem(new Item("sword", "stone sword", 1.2));
+        townHall.addItem(new Item("bookshelf", "wooden bookshelf", 100, false));
 
         DialogueDefault welcome, demonlord, thatsMe, hero, guild;
         DialogueEnd noHelp, end, endRefuse;
@@ -97,7 +97,7 @@ public class Game {
                 Yes, the hero the only one strong enough to defeat the demon lord! Wait a minute..
                 you look an awful lot like him.."""); // -> name
 
-        Item sword = new Item("sword", "iron sword", 3, 6);
+        Item sword = new Item("sword", "iron sword", 3);
         name = new DialogueGive("""
                 It's really you __PLAYER_NAME__! I can't believe the hero finally showed up!
                 Please, let met give you this __ITEM_NAME__ it's not much but I want to help out wherever I can!
@@ -139,13 +139,6 @@ public class Game {
         printLocationInfo();
     }
 
-    private void printLocationInfo() {
-        System.out.println(player.getInfo());
-        System.out.println();
-    }
-
-
-
     public void play() {
         boolean finished = false;
 
@@ -153,6 +146,19 @@ public class Game {
             Command c = parser.getCommand();
             finished = c.execute(player);
         }
+
+        if(player.isDead()) { // game stopped because player died
+            playerDied();
+        }
+    }
+
+    private void printLocationInfo() {
+        System.out.println(player.getInfo());
+        System.out.println();
+    }
+
+    private void playerDied() {
+
     }
 
     public static void main(String[] args) {

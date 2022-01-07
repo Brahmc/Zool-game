@@ -25,6 +25,6 @@ public class GOcommand extends Command{
         } else {
             System.out.println(player.getInfo());
         }
-        return false;
+        return player.triggerRoomEvent();
     }
 }

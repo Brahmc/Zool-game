@@ -1,6 +1,8 @@
 package main;
 
 import main.characters.Character;
+import main.characters.NonPlayer;
+import main.event.Event;
 import main.items.Item;
 
 import java.util.ArrayList;
@@ -12,13 +14,15 @@ public class Room {
     private final String description;
     private final HashMap<String, Room> exits;
     private final ArrayList<Item> items;
-    private final ArrayList<Character> characters;
+    private final ArrayList<NonPlayer> characters;
+    private final Event event;
 
     public Room(String description) {
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
         characters = new ArrayList<>();
+        event = null;
     }
 
 
@@ -53,7 +57,7 @@ public class Room {
     }
 
     public Character getCharacterByName(String name) {
-        for(Character character : characters) {
+        for(NonPlayer character : characters) {
             String cName = character.getName().toLowerCase(Locale.ROOT);
             if(cName.equals(name))
                 return character;
@@ -61,7 +65,7 @@ public class Room {
         return null;
     }
 
-    public void addCharacter(Character character) {
+    public void addCharacter(NonPlayer character) {
         characters.add(character);
     }
 
@@ -71,6 +75,13 @@ public class Room {
             returnString.append(" ").append(direction);
         }
         return returnString.toString();
+    }
+
+    public boolean executeEvent() {
+        if(event != null) {
+            return event.execute();
+        }
+        return false;
     }
 
     public String getLongDescription() {
