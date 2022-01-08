@@ -15,7 +15,11 @@ public class NonPlayer extends Character {
     }
 
     public NonPlayer(String name, String profession, boolean canFight) {
-        super(name);
+        this(name, profession, canFight, 100);
+    }
+
+    public NonPlayer(String name, String profession, boolean canFight, int maxHealth) {
+        super(name, maxHealth);
         this.profession = profession;
         currentDialogue = null;
         this.canFight = canFight;

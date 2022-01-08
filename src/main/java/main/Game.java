@@ -87,7 +87,25 @@ public class Game {
         DialogueEnd noHelp, end, endRefuse;
         DialogueGive name;
 
+        //create NonPlayer demon
+        NonPlayer demon = new NonPlayer("demon", "serves demon lord", true);
+        demon.giveItem(new HealingItem("potion", "potion of healing", 60));
+        demon.giveItem(new HealingItem("potion", "potion of healing", 60));
+        demon.setWeapon(new Weapon("claw", "demon's claws", 6, 2));
+        demonForrest.addCharacter(demon);
+        demonForrest.setEvent(new StartFight("The demon defending the castle is attacking you!", demon));
+        //
 
+        //create NonPlayer demon lord
+        NonPlayer demonLord = new NonPlayer("demonLord", "lord of demons", true, 200);
+        demonLord.setWeapon(new Weapon("sword", "demon lord's sword", 6, 4));
+
+        demonLord.setArmor(new Armor("armor", "demon lord's armor", 2));
+        demonCastle.addCharacter(demonLord);
+        demonCastle.setEvent(new StartFight("The demon lord is attacking you!", demonLord));
+        //
+
+        //create NonPlayer thief
         NonPlayer thief = new NonPlayer("thief", "Potion thief");
         thief.giveItem(new HealingItem("potion", "potion of healing", 60));
         thief.giveItem(new HealingItem("potion", "potion of healing", 60));
@@ -189,7 +207,7 @@ public class Game {
         DialogueDefault staredown, werewolfQuest, werewolfQuest2, werewolfQuest3;
         DialogueReceive werewolfWait;
 
-        Armor armor = new Armor("armor", "iron armor", 4);
+        Armor armor = new Armor("armor", "iron armor", 5);
         goblinGive = new DialogueGive("""
         It seems like you managed to slay the goblin! You gave me a fine cloth, Here take this __ITEM_NAME__""", armor);
         goblinWait.setHasItemResponse(goblinGive); // link to previous dialogue
@@ -220,7 +238,6 @@ public class Game {
         werewolfQuest.addOption("Sure!", werewolfQuest2);
         werewolfQuest2.addOption("Tell me more..", werewolfQuest3);
         werewolfQuest3.addOption("Ill be back.", new DialogueEnd("Success!!", werewolfWait));
-        //
 
         // third section
         DialogueGive werewolfGive;
@@ -242,7 +259,6 @@ public class Game {
         giles.giveItem(sword2);
         giles.giveItem(potion);
         //
-
 
 
         player.setCurrentRoom(villageCenter);

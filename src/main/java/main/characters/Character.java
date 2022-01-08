@@ -16,15 +16,17 @@ public abstract class Character {
     private Armor armor;
     private final Weapon DEFAULT_WEAPON;
     private final Armor DEFAULT_ARMOR;
+    private final int MAX_HEALTH;
     private final ArrayList<Item> inventory;
     private final Random rand;
 
-    public Character(String name) {
+    public Character(String name, int maxHealth) {
         this.name = name;
         color = 0;
-        health = 100;
+        health = maxHealth;
         DEFAULT_WEAPON = new Weapon("fists", "no weapon equipped", 0, 0);
         DEFAULT_ARMOR = new Armor("naked", "no armor equipped", 0);
+        MAX_HEALTH = maxHealth;
         inventory = new ArrayList<>();
         rand = new Random();
     }
@@ -118,7 +120,7 @@ public abstract class Character {
         // make sure health stays between 0 and 100
         health += amount;
         if(health < 0) health = 0;
-        if(health > 100) health = 100;
+        if(health > MAX_HEALTH) health = MAX_HEALTH;
     }
 
     /**

@@ -15,7 +15,7 @@ public class Player extends Character{
     private final ArrayList<Room> ROOM_HISTORY;
 
     public Player(String name) {
-        super(name);
+        super(name,100);
         ROOM_HISTORY = new ArrayList<>();
         currentRoom = null;
     }
