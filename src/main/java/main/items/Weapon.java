@@ -6,8 +6,8 @@ public class Weapon extends ItemWithLevel{
 
     private final int critRate; // more critRate means critical hits are more likeley
 
-    public Weapon(String name, String description, double weight, int level, int critRate) throws IllegalArgumentException {
-        super(name, description, weight, level);
+    public Weapon(String name, String description, int level, int critRate) throws IllegalArgumentException {
+        super(name, description, level);
         this.critRate = critRate;
     }
 

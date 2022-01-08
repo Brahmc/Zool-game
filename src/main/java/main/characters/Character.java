@@ -23,8 +23,8 @@ public abstract class Character {
         this.name = name;
         color = 0;
         health = 100;
-        DEFAULT_WEAPON = new Weapon("fists", "no weapon equipped", 0, 0, 0);
-        DEFAULT_ARMOR = new Armor("naked", "no armor equipped", 0, 0);
+        DEFAULT_WEAPON = new Weapon("fists", "no weapon equipped", 0, 0);
+        DEFAULT_ARMOR = new Armor("naked", "no armor equipped", 0);
         inventory = new ArrayList<>();
         rand = new Random();
     }

@@ -63,7 +63,7 @@ public class Game {
         townHall.addExit("west", villageCenter);
         backAlley.addExit("south", villageCenter);
         NonPlayer bob = new NonPlayer("Bob", "Thief");
-        bob.giveItem(new HealingItem("potion", "healing potion", 0.3, 60));
+        bob.giveItem(new HealingItem("potion", "healing potion", 60));
 
         backAlley.setEvent(new StartFight("A man wants to fight you!", bob));
         adventurersGuild.addExit("east", villageCenter);
@@ -83,8 +83,8 @@ public class Game {
         demonCastle.addExit("south", farmLand);
 
         // spawn items
-        townHall.addItem(new Weapon("sword", "stone sword", 1.2, 2, 3));
-        townHall.addItem(new Item("bookshelf", "wooden bookshelf", 100, false));
+        townHall.addItem(new Weapon("sword", "stone sword", 2, 3));
+        townHall.addItem(new Item("bookshelf", "wooden bookshelf", false));
 
         DialogueDefault welcome, demonlord, thatsMe, hero, guild;
         DialogueEnd noHelp, end, endRefuse;
@@ -106,7 +106,7 @@ public class Game {
                 Yes, the hero the only one strong enough to defeat the demon lord! Wait a minute..
                 you look an awful lot like him.."""); // -> name
 
-        Item sword = new Item("sword", "iron sword", 3);
+        Item sword = new Weapon("sword", "iron sword", 3, 1);
         name = new DialogueGive("""
                 It's really you __PLAYER_NAME__! I can't believe the hero finally showed up!
                 Please, let met give you this __ITEM_NAME__ it's not much but I want to help out wherever I can!
@@ -137,7 +137,7 @@ public class Game {
         //
 
         //create NonPlayer goblin
-        Armor cloth = new Armor("axe", "stone axe", 1, 1);
+        Armor cloth = new Armor("axe", "stone axe", 1);
         NonPlayer goblin = new NonPlayer("goblin", "fighter", true);
         goblin.giveItem(cloth);
         //

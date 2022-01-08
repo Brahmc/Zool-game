@@ -6,18 +6,16 @@ import main.exceptoins.IllegalItemException;
 public class Item {
     private String name;
     private final String description;
-    private final double WEIGHT;
     private final boolean isCollectable;
 
-    public Item(String name, String DESCRIPTION, double weight, boolean isCollectable) {
+    public Item(String name, String DESCRIPTION, boolean isCollectable) {
         this.name = name;
-        this.WEIGHT = weight;
         this.description = DESCRIPTION;
         this.isCollectable = isCollectable;
     }
 
-    public Item(String name, String DESCRIPTION, double weight) {
-        this(name, DESCRIPTION, weight, true);
+    public Item(String name, String DESCRIPTION) {
+        this(name, DESCRIPTION, true);
     }
 
     public void changeName(String name) {
@@ -35,7 +33,6 @@ public class Item {
     public String toString() {
         String string = getName();
         if(!description.isEmpty()) string +=  " (" + description + ")";
-        if(WEIGHT != 0 ) string += " (" + WEIGHT + "kg)";
         return string;
     }
 
