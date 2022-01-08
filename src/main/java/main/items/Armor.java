@@ -1,5 +1,7 @@
 package main.items;
 
+import main.characters.Player;
+
 public class Armor extends ItemWithLevel{
 
 
@@ -7,5 +9,9 @@ public class Armor extends ItemWithLevel{
         super(name, description, weight, level);
     }
 
-
+    @Override
+    public String use(Player player) {
+        player.setArmor(this);
+        return "You equipped " + this + ".";
+    }
 }

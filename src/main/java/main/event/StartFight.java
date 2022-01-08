@@ -19,7 +19,6 @@ public class StartFight extends Event{
         System.out.println(getMessage());
 
         FightModule fightModule =new FightModule(player, ENEMY);
-        fightModule.startFight();
-        return false;
+        return fightModule.startFight();
     }
 }

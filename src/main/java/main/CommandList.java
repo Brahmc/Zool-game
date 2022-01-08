@@ -14,7 +14,8 @@ public class CommandList {
     private static HashSet<Command> getDefault() { //commands you can ALWAYS do
         HashSet<Command> commands = new HashSet<>();
         Collections.addAll(commands,
-                Command.HELP);
+                Command.HELP,
+                Command.QUIT);
         return commands;
     }
 
@@ -30,7 +31,8 @@ public class CommandList {
                 Command.TEST,
                 Command.TALK,
                 Command.INV,
-                Command.BACK);
+                Command.BACK,
+                Command.USE);
         return commands;
     }
 

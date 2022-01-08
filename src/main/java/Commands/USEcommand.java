@@ -23,9 +23,10 @@ public class USEcommand extends Command{
             System.out.println("Use what?");
         }
         try {
-            player.useItemByName(args.get(0));
+            String response = player.useItemByName(args.get(0));
+            System.out.println(response);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
     }

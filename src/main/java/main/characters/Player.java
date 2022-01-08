@@ -2,12 +2,10 @@ package main.characters;
 
 import main.event.Event;
 import main.exceptoins.IllegalItemException;
-import main.items.Armor;
 import main.items.Item;
 import main.Room;
 import main.exceptoins.NoItemException;
 import main.exceptoins.NotCollectableException;
-import main.items.Weapon;
 
 import java.util.ArrayList;
 
@@ -15,12 +13,10 @@ import java.util.ArrayList;
 public class Player extends Character{
     private Room currentRoom;
     private final ArrayList<Room> ROOM_HISTORY;
-    private double maxWeight;
 
     public Player(String name) {
         super(name);
         ROOM_HISTORY = new ArrayList<>();
-        maxWeight = 25;
         currentRoom = null;
     }
 
@@ -32,6 +28,10 @@ public class Player extends Character{
         this.currentRoom = currentRoom;
     }
 
+    /**
+     * takes item from current room
+     * @param name String matching Item name
+     */
     public void takeFromRoom(String name) throws NoItemException, NotCollectableException {
         Item item = currentRoom.getItemByName(name);
         if(item == null) {
@@ -44,6 +44,11 @@ public class Player extends Character{
         currentRoom.removeItem(item);
     }
 
+    /**
+     * drops item in current room
+     * @param name String matching Item name
+     * @return true if successful
+     */
     public boolean drop(String name) {
        Item item = getItemByName(name);
        if(item != null) {
@@ -54,24 +59,21 @@ public class Player extends Character{
        return false;
     }
 
-    public void equipItem(Item item) throws IllegalItemException, NoItemException {
-        if(item == null) {
-            throw new NoItemException("There is no such item in your inventory!");
-        }
-        if(item instanceof Weapon weapon) setWeapon(weapon);
-        else if(item instanceof Armor armor)
-
-        throw new IllegalItemException("That item can't be equipped!");
-    }
-
-    public void useItemByName(String name) throws NoItemException, IllegalItemException {
+    /**
+     * @param name String matching Item name
+     * @return item response string
+     */
+    public String useItemByName(String name) throws NoItemException, IllegalItemException {
         Item item = getItemByName(name);
         if(item == null) {
             throw new NoItemException("There is no such item in your inventory!");
         }
-        item.use(this);
+        return item.use(this);
     }
 
+    /**
+     * @param name String matching Item name
+     */
     private Item getItemByName(String name) {
         for(Item item : getInventory()) {
             if(item.getName().equals(name)) {
@@ -82,22 +84,22 @@ public class Player extends Character{
     }
 
     /**
-     * @return String with list of items.
+     * @return String with list of items and player info
      */
     public String seeInventory() {
         ArrayList<String> itemDesc = new ArrayList<>();
         for(Item item : getInventory()) {
-            itemDesc.add(item.toString());
+            if(!item.equals(getWeapon()) && !item.equals(getArmor())) { // equipped items don't have to be displayed in inventory
+                itemDesc.add(item.toString());
+            }
         }
-        String invString = "Equipped: \nWeapon: " + getWeapon() + "\nArmor: ";
-        if(getArmor() == null) invString += "No armor equipped";
-        else invString += getArmor();
-        invString += "\n\n";
+        String BOLD = "\033[0;1m"; // Start bold (ANSI)
+        String END = "\u001B[0m"; // White text
+        String part1 = getStats() +
+                        BOLD+"\n\nItems:\n"+END; // in bold
 
-        if(itemDesc.isEmpty()) invString += "You don't have any items!";
-        else invString +=String.join("\n", itemDesc);
-
-        return invString;
+        if(itemDesc.isEmpty()) return part1 + "You don't have any items!";
+        else return part1 + String.join("\n", itemDesc);
     }
 
     public String getInfo() {
@@ -105,8 +107,8 @@ public class Player extends Character{
     }
 
     /**
-     *changes currentRoom to direction matching exit if the exit is valid
-     * @return true if successful
+     *Changes current room to direction matching exit if the exit is valid
+     *@return true if successful
      */
     public boolean goRoom(String direction) {
         Room nextRoom = currentRoom.getExit(direction);

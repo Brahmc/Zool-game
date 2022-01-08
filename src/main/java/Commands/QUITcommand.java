@@ -16,7 +16,7 @@ public class QUITcommand extends Command{
 
     @Override
     public boolean execute(Player player) {
-        System.out.println("Thanks for playing " + player.getName() + "!");
+        System.out.println("Thanks for playing " + player.getDisplayName() + "!");
         return true;
     }
 }

@@ -116,4 +116,10 @@ public class Room {
         }
         return String.join(", ", names);
     }
+
+    public void characterDie(NonPlayer character) {
+        items.addAll(character.getInventory()); // drop all items on the floor
+        characters.remove(character);
+        characters.add(new NonPlayer(character.getName(), "Dead"));
+    }
 }

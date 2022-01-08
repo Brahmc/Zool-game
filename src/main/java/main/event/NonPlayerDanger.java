@@ -4,7 +4,6 @@ import main.FightModule;
 import main.OptionParse;
 import main.Parser;
 import main.characters.Character;
-import main.characters.HostileNonPlayer;
 import main.characters.Player;
 
 public class NonPlayerDanger extends Event{

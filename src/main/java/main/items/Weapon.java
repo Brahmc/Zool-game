@@ -1,18 +1,28 @@
 package main.items;
 
 import main.characters.Player;
-import main.exceptoins.IllegalItemException;
-import main.exceptoins.NoItemException;
 
 public class Weapon extends ItemWithLevel{
 
-    public Weapon(String name, String description, double weight, int level) throws IllegalArgumentException {
+    private int critRate; // more critRate means critical hits are more likeley
+
+    public Weapon(String name, String description, double weight, int level, int critRate) throws IllegalArgumentException {
         super(name, description, weight, level);
+        this.critRate = critRate;
+    }
+
+    public int getCritRate() {
+        return critRate;
     }
 
     @Override
-    public void use(Player player) throws NoItemException, IllegalItemException {
-        super.use(player);
-        player.equipItem(this);
+    public String toString() {
+        return super.toString() + "(Crit Rate: " + critRate + ")";
+    }
+
+    @Override
+    public String use(Player player)  {
+        player.setWeapon(this);
+        return "You equipped " + this + ".";
     }
 }

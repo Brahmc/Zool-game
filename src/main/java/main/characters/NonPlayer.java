@@ -6,11 +6,12 @@ import main.dialogue.*;
 import java.util.ArrayList;
 
 public class NonPlayer extends Character {
-
     private Dialogue currentDialogue;
+    private String proffesion;
 
-    public NonPlayer(String name) {
+    public NonPlayer(String name, String proffesion) {
         super(name);
+        this.proffesion  = proffesion;
         currentDialogue = null;
     }
 

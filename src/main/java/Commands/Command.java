@@ -5,7 +5,6 @@ import main.characters.Player;
 import java.util.List;
 
 abstract public class Command {
-
     private final List<String> args;
 
     public Command(List<String> args) {

@@ -2,23 +2,26 @@ package main.items;
 
 import main.characters.Player;
 import main.exceptoins.IllegalItemException;
-import main.exceptoins.NoItemException;
 
 public class Item {
     private String name;
-    private final String DESCRIPTION;
+    private final String description;
     private final double WEIGHT;
-    private boolean isCollectable;
+    private final boolean isCollectable;
 
     public Item(String name, String DESCRIPTION, double weight, boolean isCollectable) {
         this.name = name;
         this.WEIGHT = weight;
-        this.DESCRIPTION = DESCRIPTION;
+        this.description = DESCRIPTION;
         this.isCollectable = isCollectable;
     }
 
     public Item(String name, String DESCRIPTION, double weight) {
         this(name, DESCRIPTION, weight, true);
+    }
+
+    public void changeName(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -29,18 +32,14 @@ public class Item {
         return isCollectable;
     }
 
-    public void setCollectable(boolean collectable) {
-        isCollectable = collectable;
-    }
-
     public String toString() {
         String string = getName();
-        if(!DESCRIPTION.isEmpty()) string +=  " (" + DESCRIPTION + ")";
+        if(!description.isEmpty()) string +=  " (" + description + ")";
         if(WEIGHT != 0 ) string += " (" + WEIGHT + "kg)";
         return string;
     }
 
-    public void use(Player player) throws NoItemException, IllegalItemException {
-
+    public String use(Player player) throws  IllegalItemException {
+        throw new IllegalItemException("This item can't be used or equipped."); // throws error because default items can't be used
     }
 }

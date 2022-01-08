@@ -1,15 +1,14 @@
 package main;
 
 import Commands.Command;
-import main.characters.Character;
 import main.characters.NonPlayer;
 import main.characters.Player;
 import main.dialogue.DialogueDefault;
 import main.dialogue.DialogueEnd;
 import main.dialogue.DialogueGive;
-import main.event.NonPlayerDanger;
 import main.event.StartFight;
 import main.items.Item;
+import main.items.Weapon;
 
 public class Game {
     private final CommandParse parser;
@@ -63,7 +62,7 @@ public class Game {
 
         townHall.addExit("west", villageCenter);
         backAlley.addExit("south", villageCenter);
-        backAlley.setEvent(new StartFight("A man wants to fight you!", new NonPlayer("Bob")));
+        backAlley.setEvent(new StartFight("A man wants to fight you!", new NonPlayer("Bob", "Thief")));
         adventurersGuild.addExit("east", villageCenter);
 
         gate.addExit("north", villageCenter);
@@ -81,7 +80,7 @@ public class Game {
         demonCastle.addExit("south", farmLand);
 
         // spawn items
-        townHall.addItem(new Item("sword", "stone sword", 1.2));
+        townHall.addItem(new Weapon("sword", "stone sword", 1.2, 2, 3));
         townHall.addItem(new Item("bookshelf", "wooden bookshelf", 100, false));
 
         DialogueDefault welcome, demonlord, thatsMe, hero, guild;
@@ -120,7 +119,7 @@ public class Game {
         name.setRefuseResponse(endRefuse);
 
 
-        NonPlayer alan = new NonPlayer("Alan");
+        NonPlayer alan = new NonPlayer("Alan", "Guild master");
         alan.giveItem(sword);
         alan.setColor(96);
         alan.setCurrentDialogue(welcome);
@@ -162,7 +161,11 @@ public class Game {
     }
 
     private void playerDied() {
-
+        System.out.println("You died!!");
+        if(OptionParse.twoChoice(parser, "Do you want to restart?", "restart", "quit")) {
+            Game g = new Game();
+            g.play(); // run game again
+        }
     }
 
     public static void main(String[] args) {
