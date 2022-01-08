@@ -2,16 +2,16 @@ package main;
 
 import Commands.ATTACKcommand;
 import Commands.Command;
-import main.characters.Character;
+import main.characters.NonPlayer;
 import main.characters.Player;
 
 public class FightModule {
 
     private final Player player;
-    private final Character enemy;
+    private final NonPlayer enemy;
     CommandParse parser;
 
-    public FightModule(Player player, Character hostile) {
+    public FightModule(Player player, NonPlayer hostile) {
         parser = new CommandParse(CommandParse.Type.FIGHT);
         this.player = player;
         this.enemy = hostile;
@@ -21,42 +21,35 @@ public class FightModule {
      * @return true if player died or quit
      */
     public boolean startFight() {
+        printStartFight();
         boolean fightOver = false;
 
         while(!fightOver) {
             Command command = parser.getCommand();
-            if(command instanceof ATTACKcommand a) a.execute(player, enemy);
-            fightOver = command.execute(player);
-            if(enemy.isDead()) {
-                fightOver = true;
-            }
-            enemyAttack(); // after each command enemy attacks
+            if(command instanceof ATTACKcommand a) fightOver = a.execute(player, enemy);
+            else fightOver = command.execute(player);
 
             if(player.isDead()) {
                 System.out.println("You were killed by " + enemy.getDisplayName() + "!");
                 return true;
             }
         }
+
+        endFight();
         return false;
     }
 
     private void printStartFight() {
-        System.out.println("You are fighting " + enemy.getDisplayName());
-        System.out.println("Enemy stats: ");
-        System.out.println(enemy.getStats());
+        System.out.println("You are fighting " + enemy);
+        System.out.println(enemy.getDisplayName() + " 's stats:");
+        System.out.println(enemy.getStats().replaceAll("\n", "\n\t"));
     }
 
-    private void enemyAttack() {
-        DamageInfo damageInfo = enemy.getDamage();
-        int damage = damageInfo.getDamage();
-        int damageTaken = player.takeDamage(damage); // damage taken by player (Armor reduces damage)
-        String damageString = "\u001B[31m" + damageTaken + "\u001B[0m"; // displays damage in red (ANSI)
-        if(damageInfo.isCritHit()) {
-            System.out.println(enemy.getDisplayName() + " got a critical hit on you -" + damageString);
-        } else {
-            System.out.println(enemy.getDisplayName() + "attacked you -" + damageString);
-        }
-        System.out.println("Your current health: " + player.getDisplayHealth());
+    private void endFight() {
+        System.out.println("You killed " + enemy);
+        player.getCurrentRoom().characterDie(enemy);
+
+        System.out.println(player.getInfo());
     }
 
     private void printAttack() {

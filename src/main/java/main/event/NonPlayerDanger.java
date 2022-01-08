@@ -3,15 +3,15 @@ package main.event;
 import main.FightModule;
 import main.OptionParse;
 import main.Parser;
-import main.characters.Character;
+import main.characters.NonPlayer;
 import main.characters.Player;
 
 public class NonPlayerDanger extends Event{
 
-    private Character hostile;
+    private NonPlayer hostile;
 
 
-    public NonPlayerDanger(String message, Character hostile) {
+    public NonPlayerDanger(String message, NonPlayer hostile) {
         super(message);
         this.hostile = hostile;
     }

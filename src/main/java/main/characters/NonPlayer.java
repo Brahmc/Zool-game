@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class NonPlayer extends Character {
     private Dialogue currentDialogue;
-    private String proffesion;
+    private final String profession;
 
-    public NonPlayer(String name, String proffesion) {
+    public NonPlayer(String name, String profession) {
         super(name);
-        this.proffesion  = proffesion;
+        this.profession = profession;
         currentDialogue = null;
     }
 
@@ -61,5 +61,10 @@ public class NonPlayer extends Character {
         character.giveItem(item);
         getInventory().remove(item);
         return getDisplayName() + " gave you: " + item;
+    }
+
+    @Override
+    public String toString() {
+        return getDisplayName() + " (" + profession + ")";
     }
 }

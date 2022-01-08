@@ -1,6 +1,5 @@
 package main;
 
-import main.characters.Character;
 import main.characters.NonPlayer;
 import main.event.Event;
 import main.items.Item;
@@ -65,7 +64,7 @@ public class Room {
         return null;
     }
 
-    public Character getCharacterByName(String name) {
+    public NonPlayer getCharacterByName(String name) {
         for(NonPlayer character : characters) {
             String cName = character.getName().toLowerCase(Locale.ROOT);
             if(cName.equals(name))
@@ -111,8 +110,8 @@ public class Room {
 
     private String getCharacterString() {
         HashSet<String> names = new HashSet<>();
-        for(Character c : characters) {
-            names.add(c.getDisplayName());
+        for(NonPlayer c : characters) {
+            names.add(c.toString());
         }
         return String.join(", ", names);
     }

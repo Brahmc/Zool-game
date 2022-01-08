@@ -8,7 +8,7 @@ import main.items.Weapon;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Character {
+public abstract class Character {
     private final String name;
     private int color; // color of character's name when mentioned (ANSI values)
     private int health; //all characters start with 100 health

@@ -14,8 +14,7 @@ public class CommandList {
     private static HashSet<Command> getDefault() { //commands you can ALWAYS do
         HashSet<Command> commands = new HashSet<>();
         Collections.addAll(commands,
-                Command.HELP,
-                Command.QUIT);
+                Command.HELP);
         return commands;
     }
 
@@ -38,7 +37,10 @@ public class CommandList {
 
     private static HashSet<Command> getFIGHT() {
         HashSet<Command> commands = getDefault();
-
+        Collections.addAll(commands,
+                Command.ATTACK,
+                Command.INV,
+                Command.USE);
         return commands;
     }
 
