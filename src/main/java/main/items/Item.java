@@ -14,8 +14,8 @@ public class Item {
         this.isCollectable = isCollectable;
     }
 
-    public Item(String name, String DESCRIPTION) {
-        this(name, DESCRIPTION, true);
+    public Item(String name, String description) {
+        this(name, description, true);
     }
 
     public void changeName(String name) {

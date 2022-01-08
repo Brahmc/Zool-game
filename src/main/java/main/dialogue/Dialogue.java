@@ -48,7 +48,8 @@ abstract public class Dialogue {
         if(spawnAction != null) spawnAction.spawn(); // spawns character
 
         ArrayList<String> options = getOptions();
-        if(options == null || options.size() < num || num < 0) return null;
-        return getFollowUp(options.get(num));
+        try {
+            return getFollowUp(options.get(num));
+        } catch (Exception e) {return null;}
     }
 }

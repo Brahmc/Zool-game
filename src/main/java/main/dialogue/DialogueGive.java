@@ -13,6 +13,12 @@ public class DialogueGive extends Dialogue{
     public DialogueGive(String text, Item item) {
         super(text, Type.GIVE);
         this.item = item;
+        setDefault(); // failsafe for if response was not set
+    }
+
+    private void setDefault() {
+        DialogueEnd defaultResponse = new DialogueEnd("Bye", this);
+        takeResponse = defaultResponse; refuseResponse = defaultResponse;
     }
 
     public void setTakeResponse(Dialogue takeResponse) {

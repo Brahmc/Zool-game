@@ -58,6 +58,7 @@ public abstract class Character {
     }
 
     public void setArmor(Armor armor) {
+        if(!getInventory().contains(armor)) getInventory().add(armor);
         this.armor = armor;
     }
 
@@ -69,9 +70,10 @@ public abstract class Character {
         int numb = 0;
         String name = item.getName();
         while (getItemByName(name) != null) {
-            if(numb != 0) item.changeName(name + numb); //change name if multiple items with same name
+            if(numb != 0) name += numb; //change name if multiple items with same name
             numb++;
         }
+        item.changeName(name);
         inventory.add(item);
     }
 

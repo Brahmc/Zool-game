@@ -40,7 +40,7 @@ public class Player extends Character{
         if(!item.isCollectable()) {
             throw new NotCollectableException("You can't take that item!");
         }
-        getInventory().add(item);
+        giveItem(item);
         currentRoom.removeItem(item);
     }
 

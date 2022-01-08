@@ -30,7 +30,7 @@ public class DialogueReceive extends Dialogue{
     @Override
     public ArrayList<String> getOptions() {
         ArrayList<String> options = new ArrayList<>();
-        options.add("yes");
+        options.add("Give item");
         options.add("no");
         return options;
     }

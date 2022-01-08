@@ -62,10 +62,7 @@ public class Game {
 
         townHall.addExit("west", villageCenter);
         backAlley.addExit("south", villageCenter);
-        NonPlayer bob = new NonPlayer("Bob", "Thief");
-        bob.giveItem(new HealingItem("potion", "healing potion", 60));
 
-        backAlley.setEvent(new StartFight("A man wants to fight you!", bob));
         adventurersGuild.addExit("east", villageCenter);
 
         gate.addExit("north", villageCenter);
@@ -90,6 +87,11 @@ public class Game {
         DialogueEnd noHelp, end, endRefuse;
         DialogueGive name;
 
+        Item potion = new HealingItem("potion", "potion of healing", 60);
+        NonPlayer thief = new NonPlayer("thief", "Potion thief");
+        thief.giveItem(new HealingItem("potion", "healing potion", 60));
+
+        backAlley.setEvent(new StartFight("You are getting robbed!!!", thief));
         // create NonPlayer alan
 
         //dialogue
@@ -106,7 +108,7 @@ public class Game {
                 Yes, the hero the only one strong enough to defeat the demon lord! Wait a minute..
                 you look an awful lot like him.."""); // -> name
 
-        Item sword = new Weapon("sword", "iron sword", 3, 1);
+        Item sword = new Weapon("sword", "iron sword", 3, 2);
         name = new DialogueGive("""
                 It's really you __PLAYER_NAME__! I can't believe the hero finally showed up!
                 Please, let met give you this __ITEM_NAME__ it's not much but I want to help out wherever I can!
@@ -139,8 +141,15 @@ public class Game {
         //create NonPlayer goblin
         Armor cloth = new Armor("cloth", "leather cloth", 1);
         NonPlayer goblin = new NonPlayer("goblin", "fighter", true);
-        goblin.giveItem(cloth);
+        goblin.setArmor(cloth);
         //
+
+        //create NonPlayer werewolf
+        Weapon claw = new Weapon("claw", "werewolf claw", 5, 1);
+        Armor werewolfSkin = new Armor("skin", "werewolf skin", 2);
+        NonPlayer werewolf = new NonPlayer("werewolf", "fighter");
+        werewolf.setWeapon(claw);
+        werewolf.setArmor(werewolfSkin);
 
         // create NonPlayer giles
         NonPlayer giles = new NonPlayer("Giles", "Guild Master");
@@ -148,7 +157,7 @@ public class Game {
 
         // first set of dialogue
         DialogueDefault greeting, goblinQuest, goblinQuest2;
-        DialogueReceive goblinAsk;
+        DialogueReceive goblinWait;
 
         greeting = new DialogueDefault("""
                 Hi there sir how can I help you?!""");
@@ -163,32 +172,73 @@ public class Game {
         goblinQuest2 = new DialogueDefault("You can get cloth by slaying a goblin. You should be able to find one at the field near the village gate.");
         goblinQuest2.setSpawnAction(new SpawnAction(field, goblin)); // spawn goblin in field
 
-        goblinAsk = new DialogueReceive("""
+        goblinWait = new DialogueReceive("""
                 Did you manage to find the __ITEM_NAME__ for me?""", cloth);
-        goblinAsk.setNoItemResponse(new DialogueEnd("""
+        goblinWait.setNoItemResponse(new DialogueEnd("""
         It seems like you haven't found the cloth yet. You should be able to get it at the field by slaying a goblin!""", null));
 
         greeting.addOption("Better equipment..", goblinQuest);
         goblinQuest.addOption("Tell me more..", goblinQuest2);
-        goblinQuest2.addOption("Alright I'll be back..", new DialogueEnd("Be careful out there sir!",goblinAsk));
+        goblinQuest2.addOption("Alright I'll be back..", new DialogueEnd("Be careful out there sir!",goblinWait));
         //
 
         // second set of dialogue
-        DialogueGive goblinGive;
+        DialogueGive goblinGive, potionGive;
+        DialogueDefault staredown, werewolfQuest, werewolfQuest2, werewolfQuest3;
+        DialogueReceive werewolfWait;
 
         Armor armor = new Armor("armor", "iron armor", 3);
         goblinGive = new DialogueGive("""
         It seems like you managed to slay the goblin! You gave me a fine cloth, Here take this __ITEM_NAME__""", armor);
-        goblinAsk.setHasItemResponse(goblinGive); // link to previous dialogue
+        goblinWait.setHasItemResponse(goblinGive); // link to previous dialogue
 
-        Item potion = new HealingItem("potion", "potion of healing", 60);
+        goblinGive.setRefuseResponse(new DialogueEnd("Alright then, you can come pick it up any time!", goblinGive));
+
+        // healing potion was made earlier (in thief)
+        potionGive = new DialogueGive("It seems like you took some damage, here have this potion!", potion);
+        staredown = new DialogueDefault("Oh okay, I guess you don't need it...");
 
 
+        werewolfQuest = new DialogueDefault("""
+        Since you brought me such fine cloth I wouldn't mind providing with a better weapon for a small price, what do you say?""");
+        werewolfQuest.addOption("Maybe later..", new DialogueEnd("Alright, don't hesitate to come back!", werewolfQuest));
 
+        werewolfQuest2 = new DialogueDefault("If you can give me the claw of a werewolf, I will give you my best sword, What do you say?");
+        werewolfQuest3 = new DialogueDefault("Alright! You should be able to find a werewolf in the forrest near the field.");
+        werewolfQuest3.setSpawnAction(new SpawnAction(forrest, werewolf)); // spawn werewolf
+
+        werewolfWait = new DialogueReceive("Have you found the __ITEM_NAME__??", claw);
+        werewolfWait.setNoItemResponse(new DialogueEnd("Come back when you got it you should be able to find it in the forrest near the field.", werewolfWait));
+
+        goblinGive.setTakeResponse(werewolfQuest);
+        potionGive.setTakeResponse(werewolfQuest);
+        potionGive.setRefuseResponse(staredown);
+        staredown.addOption("...", werewolfQuest);
+        werewolfQuest.addOption("Sure!", werewolfQuest2);
+        werewolfQuest2.addOption("Tell me more..", werewolfQuest3);
+        werewolfQuest3.addOption("Ill be back.", new DialogueEnd("Success!!", werewolfWait));
         //
+
+        // third section
+        DialogueGive werewolfGive;
+        DialogueDefault good;
+
+        Weapon sword2 = new Weapon("sword", "titanium sword", 8, 9);
+        werewolfGive = new DialogueGive("That was fast! Here take this __ITEM_NAME__!", sword2);
+        werewolfGive.setRefuseResponse(new DialogueEnd("You can always come pick it up later I guess..", werewolfGive));
+
+        good = new DialogueDefault("You got some really good equipment now it's almost like you could defeat the demon lord...");
+        good.addOption("Really??", new DialogueEnd("Don't take what I said there too seriously, only the hero could defeat him after all..", good));
+
 
         giles.setCurrentDialogue(greeting);
         adventurersGuild.addCharacter(giles);
+        //
+        giles.giveItem(armor);
+        giles.giveItem(sword2);
+        //
+
+
 
         player.setCurrentRoom(villageCenter);
     }
