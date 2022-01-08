@@ -7,6 +7,7 @@ import main.dialogue.DialogueDefault;
 import main.dialogue.DialogueEnd;
 import main.dialogue.DialogueGive;
 import main.event.StartFight;
+import main.items.HealingItem;
 import main.items.Item;
 import main.items.Weapon;
 
@@ -62,7 +63,10 @@ public class Game {
 
         townHall.addExit("west", villageCenter);
         backAlley.addExit("south", villageCenter);
-        backAlley.setEvent(new StartFight("A man wants to fight you!", new NonPlayer("Bob", "Thief")));
+        NonPlayer bob = new NonPlayer("Bob", "Thief");
+        bob.giveItem(new HealingItem("potion", "healing potion", 0.3, 60));
+
+        backAlley.setEvent(new StartFight("A man wants to fight you!", bob));
         adventurersGuild.addExit("east", villageCenter);
 
         gate.addExit("north", villageCenter);

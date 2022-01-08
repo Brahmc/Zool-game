@@ -43,6 +43,7 @@ public abstract class Character {
     }
 
     public void setWeapon(Weapon weapon) {
+        if(!getInventory().contains(weapon)) getInventory().add(weapon);
         this.weapon = weapon;
     }
 
@@ -84,7 +85,7 @@ public abstract class Character {
         return damage;
     }
 
-    private void addHealth(int amount) {
+    public void addHealth(int amount) {
         // make sure health stays between 0 and 100
         health += amount;
         if(health < 0) health = 0;

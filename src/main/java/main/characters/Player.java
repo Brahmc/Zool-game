@@ -99,7 +99,7 @@ public class Player extends Character{
         }
         String BOLD = "\033[0;1m"; // Start bold (ANSI)
         String END = "\u001B[0m"; // White text
-        String part1 = getStats() +
+        String part1 = "Health: " + getDisplayHealth() + "\n" + getStats() +
                         BOLD+"\n\nItems:\n"+END; // in bold
 
         if(itemDesc.isEmpty()) return part1 + "You don't have any items!";

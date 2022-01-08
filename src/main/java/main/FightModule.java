@@ -41,7 +41,7 @@ public class FightModule {
 
     private void printStartFight() {
         System.out.println("You are fighting " + enemy);
-        System.out.println(enemy.getDisplayName() + " 's stats:");
+        System.out.println(enemy.getDisplayName() + "'s stats:");
         System.out.println(enemy.getStats().replaceAll("\n", "\n\t"));
     }
 

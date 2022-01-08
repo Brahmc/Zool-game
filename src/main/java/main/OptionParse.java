@@ -5,10 +5,6 @@ import java.util.Locale;
 
 public class OptionParse {
 
-    public OptionParse() {
-
-    }
-
     public static String multipleChoice(Parser parser, String desc, String... options) {
 
         String choices = desc + " \n Options " + String.join(", ", options);
