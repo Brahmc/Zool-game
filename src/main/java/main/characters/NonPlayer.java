@@ -23,6 +23,10 @@ public class NonPlayer extends Character {
         return currentDialogue;
     }
 
+    public boolean hasDialogue() {
+        return !(currentDialogue == null);
+    }
+
     public String getCurrentOptions() {
         String offer = "";
         if(currentDialogue instanceof DialogueGive g) {

@@ -26,17 +26,17 @@ public class TALKcommand extends Command{
         }
 
         String characterName = getArgs().get(0);
-        Character character = player.getCurrentRoom()
-                                    .getCharacterByName(characterName);
+        NonPlayer character = player.getNearbyCharacterByName(characterName);
+
         if(character == null) {
             System.out.println("There is no such person in the room!");
             return false;
         }
-        if(!(character instanceof NonPlayer nonPlayer)) {
+        if(!character.hasDialogue()) {
             System.out.println("You can't talk to that character!");
             return false;
         }
-        DialogueProcessor.processDialogue(nonPlayer, player);
+        DialogueProcessor.processDialogue(character, player);
         return false;
     }
 }

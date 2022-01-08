@@ -83,6 +83,10 @@ public class Player extends Character{
         return null;
     }
 
+    public NonPlayer getNearbyCharacterByName(String name) {
+        return currentRoom.getCharacterByName(name);
+    }
+
     /**
      * @return String with list of items and player info
      */

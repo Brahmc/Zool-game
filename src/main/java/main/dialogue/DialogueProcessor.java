@@ -15,13 +15,12 @@ public class DialogueProcessor {
         while(!finished) {
             printText(nonPlayer, player);
             if(!nonPlayer.getDialogue().hasFollowUp()) return; // don't to continue if dialogue is text only
-            switch (nonPlayer.getDialogue().getType()) {
-                case DEFAULT -> getResponse(nonPlayer);
-                case GIVE -> giveItem(player, nonPlayer);
-                case END -> {   // loads next dialogue but doesn't ask any new questions and ends the loop.
-                    nonPlayer.nextDialogue(1);
-                    finished = true;
-                }
+
+            if(nonPlayer.getDialogue().getType().equals(Dialogue.Type.END)) {
+                nonPlayer.nextDialogue(1); // loads next dialogue but doesn't ask any new questions and ends the loop.
+                finished = true;
+            } else {
+                getResponse(player, nonPlayer);
             }
         }
 
@@ -29,29 +28,29 @@ public class DialogueProcessor {
         System.out.println(player.getInfo());
     }
 
-    private static void getResponse(NonPlayer nonPlayer) {
+    private static void getResponse(Player player, NonPlayer nonPlayer) {
         Parser pars = new Parser();
         boolean answered = false;
         while (!answered) {
             System.out.println(nonPlayer.getCurrentOptions());
             int answer = getInt(pars.getFirstOnly()); // hold till answer
+
+            answerAction(player, nonPlayer, answer);
             answered = nonPlayer.nextDialogue(answer);
         }
     }
 
-    private static void giveItem(Player player, NonPlayer nonPlayer) {
-        Item item = nonPlayer.getItemOnOffer();
-        Parser pars = new Parser();
-        boolean answered = false;
-        while (!answered) {
-            System.out.println(nonPlayer.getCurrentOptions());
-            int answer = getInt(pars.getFirstOnly()); // hold till answer
-            answered = nonPlayer.nextDialogue(answer);
+    private static void answerAction(Player player, NonPlayer nonPlayer, int answer) {
+        switch (nonPlayer.getDialogue().getType()) {
+            case GIVE -> give(player, nonPlayer, answer);
+        }
+    }
 
-            if(answer == 1) {
-                String response = nonPlayer.giveCharacter(player, item);
-                System.out.println(response);
-            }
+    private static void give(Player player, NonPlayer nonPlayer, int answer) {
+        Item item = nonPlayer.getItemOnOffer();
+        if(answer == 1) {
+            String response = nonPlayer.giveCharacter(player, item);
+            System.out.println(response);
         }
     }
 
