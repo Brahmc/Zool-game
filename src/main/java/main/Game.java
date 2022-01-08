@@ -228,7 +228,7 @@ public class Game {
         werewolfQuest3.setSpawnAction(new SpawnAction(forrest, werewolf)); // spawn werewolf
 
         werewolfWait = new DialogueReceive("Have you found the __ITEM_NAME__??", claw);
-        werewolfWait.setNoItemResponse(new DialogueEnd("Come back when you got it you should be able to find it in the forrest near the field.", werewolfWait));
+        werewolfWait.setNoItemResponse(new DialogueEnd("Come back when you got it you should be able to find a werewolf in the forrest near the field.", werewolfWait));
 
         goblinGive.setTakeResponse(potionGive);
         potionGive.setTakeResponse(werewolfQuest);
@@ -250,7 +250,7 @@ public class Game {
 
         good = new DialogueDefault("You got some really good equipment now it's almost like you could defeat the demon lord...");
         good.addOption("Really??", new DialogueEnd("Don't take what I said there too seriously, only the hero could defeat him after all..", good));
-
+        werewolfGive.setTakeResponse(good);
 
         giles.setCurrentDialogue(greeting);
         adventurersGuild.addCharacter(giles);
@@ -269,7 +269,7 @@ public class Game {
         System.out.println("Welcome to the World of Zuul, " + player.getDisplayName() + "!");
         System.out.println();
         System.out.println("For hundreds of years an evil demon lord has been terrorising the people.");
-        System.out.println("But don't worry, someone by the name of " + player.getName() + " can stop him. Or so the legend goes...");
+        System.out.println("But don't worry, someone by the name of " + player.getDisplayName() + " can stop him. Or so the legend goes...");
         System.out.println("There is only one problem, you have no clue how to defeat a demon lord.");
         System.out.println("But im sure you will figure it out soon enough!, you might find some leads in the town.");
         System.out.println("Type 'help' if you need help.");

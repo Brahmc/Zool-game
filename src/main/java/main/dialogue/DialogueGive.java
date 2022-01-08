@@ -18,7 +18,8 @@ public class DialogueGive extends Dialogue{
 
     private void setDefault() {
         DialogueEnd defaultResponse = new DialogueEnd("Bye", this);
-        takeResponse = defaultResponse; refuseResponse = defaultResponse;
+        takeResponse = defaultResponse;
+        refuseResponse = defaultResponse;
     }
 
     public void setTakeResponse(Dialogue takeResponse) {

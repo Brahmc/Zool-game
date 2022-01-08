@@ -12,7 +12,7 @@ public class INVcommand extends Command{
 
     @Override
     public String getDescription() {
-        return "Get a list of items in your inventory with description.";
+        return "Get a list of items in your inventory, equipped items and player health.";
     }
 
     @Override

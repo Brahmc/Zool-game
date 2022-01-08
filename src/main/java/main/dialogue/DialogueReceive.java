@@ -26,7 +26,8 @@ public class DialogueReceive extends Dialogue{
 
     private void setDefault() {
         DialogueEnd defaultResponse = new DialogueEnd("Bye", this);
-        hasItemResponse = defaultResponse; noItemResponse = defaultResponse;
+        hasItemResponse = defaultResponse;
+        noItemResponse = defaultResponse;
     }
 
     public Item getItem() {
