@@ -21,6 +21,12 @@ public class DialogueReceive extends Dialogue{
     public void setNoItemResponse(DialogueEnd noItemResponse) {
         noItemResponse.setNewDialogue(this); // if player doesn't have the item this dialogue will repeat next time
         this.noItemResponse = noItemResponse;
+        setDefault(); // failsafe for if response was not set
+    }
+
+    private void setDefault() {
+        DialogueEnd defaultResponse = new DialogueEnd("Bye", this);
+        hasItemResponse = defaultResponse; noItemResponse = defaultResponse;
     }
 
     public Item getItem() {

@@ -64,6 +64,8 @@ public class Room {
     }
 
     public Event getEvent() {
+        Event event = this.event;
+        this.event = null; // remove event when it gets called
         return event;
     }
 

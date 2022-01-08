@@ -67,13 +67,14 @@ public abstract class Character {
     }
 
     public void giveItem(Item item) {
-        int numb = 0;
+        int numb = 1;
         String name = item.getName();
-        while (getItemByName(name) != null) {
-            if(numb != 0) name += numb; //change name if multiple items with same name
+        String newName = name;
+        while (getItemByName(newName) != null) {
             numb++;
+            newName = name + numb; //change name if multiple items with same name
         }
-        item.changeName(name);
+        item.changeName(newName);
         inventory.add(item);
     }
 

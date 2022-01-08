@@ -87,9 +87,11 @@ public class Game {
         DialogueEnd noHelp, end, endRefuse;
         DialogueGive name;
 
-        Item potion = new HealingItem("potion", "potion of healing", 60);
+
         NonPlayer thief = new NonPlayer("thief", "Potion thief");
-        thief.giveItem(new HealingItem("potion", "healing potion", 60));
+        thief.giveItem(new HealingItem("potion", "potion of healing", 60));
+        thief.giveItem(new HealingItem("potion", "potion of healing", 60));
+        thief.giveItem(new HealingItem("potion", "potion of healing", 60));
 
         backAlley.setEvent(new StartFight("You are getting robbed!!!", thief));
         // create NonPlayer alan
@@ -145,9 +147,9 @@ public class Game {
         //
 
         //create NonPlayer werewolf
-        Weapon claw = new Weapon("claw", "werewolf claw", 5, 1);
+        Weapon claw = new Weapon("claw", "werewolf claw", 4, 1);
         Armor werewolfSkin = new Armor("skin", "werewolf skin", 2);
-        NonPlayer werewolf = new NonPlayer("werewolf", "fighter");
+        NonPlayer werewolf = new NonPlayer("werewolf", "fighter", true);
         werewolf.setWeapon(claw);
         werewolf.setArmor(werewolfSkin);
 
@@ -187,33 +189,34 @@ public class Game {
         DialogueDefault staredown, werewolfQuest, werewolfQuest2, werewolfQuest3;
         DialogueReceive werewolfWait;
 
-        Armor armor = new Armor("armor", "iron armor", 3);
+        Armor armor = new Armor("armor", "iron armor", 4);
         goblinGive = new DialogueGive("""
         It seems like you managed to slay the goblin! You gave me a fine cloth, Here take this __ITEM_NAME__""", armor);
         goblinWait.setHasItemResponse(goblinGive); // link to previous dialogue
 
         goblinGive.setRefuseResponse(new DialogueEnd("Alright then, you can come pick it up any time!", goblinGive));
 
-        // healing potion was made earlier (in thief)
-        potionGive = new DialogueGive("It seems like you took some damage, here have this potion!", potion);
+        Item potion = new HealingItem("potion", "potion of healing", 60);
+        potionGive = new DialogueGive("Since you took some damage, here have this potion!", potion);
         staredown = new DialogueDefault("Oh okay, I guess you don't need it...");
 
 
         werewolfQuest = new DialogueDefault("""
-        Since you brought me such fine cloth I wouldn't mind providing with a better weapon for a small price, what do you say?""");
+        Since you brought me such fine cloth I wouldn't mind providing you with a better weapon for a small price, what do you say?""");
         werewolfQuest.addOption("Maybe later..", new DialogueEnd("Alright, don't hesitate to come back!", werewolfQuest));
 
-        werewolfQuest2 = new DialogueDefault("If you can give me the claw of a werewolf, I will give you my best sword, What do you say?");
+        werewolfQuest2 = new DialogueDefault("If you can give me the claw of a werewolf, I will give you my best sword, What do you think?");
         werewolfQuest3 = new DialogueDefault("Alright! You should be able to find a werewolf in the forrest near the field.");
         werewolfQuest3.setSpawnAction(new SpawnAction(forrest, werewolf)); // spawn werewolf
 
         werewolfWait = new DialogueReceive("Have you found the __ITEM_NAME__??", claw);
         werewolfWait.setNoItemResponse(new DialogueEnd("Come back when you got it you should be able to find it in the forrest near the field.", werewolfWait));
 
-        goblinGive.setTakeResponse(werewolfQuest);
+        goblinGive.setTakeResponse(potionGive);
         potionGive.setTakeResponse(werewolfQuest);
         potionGive.setRefuseResponse(staredown);
         staredown.addOption("...", werewolfQuest);
+
         werewolfQuest.addOption("Sure!", werewolfQuest2);
         werewolfQuest2.addOption("Tell me more..", werewolfQuest3);
         werewolfQuest3.addOption("Ill be back.", new DialogueEnd("Success!!", werewolfWait));
@@ -226,6 +229,7 @@ public class Game {
         Weapon sword2 = new Weapon("sword", "titanium sword", 8, 9);
         werewolfGive = new DialogueGive("That was fast! Here take this __ITEM_NAME__!", sword2);
         werewolfGive.setRefuseResponse(new DialogueEnd("You can always come pick it up later I guess..", werewolfGive));
+        werewolfWait.setHasItemResponse(werewolfGive);
 
         good = new DialogueDefault("You got some really good equipment now it's almost like you could defeat the demon lord...");
         good.addOption("Really??", new DialogueEnd("Don't take what I said there too seriously, only the hero could defeat him after all..", good));
@@ -236,6 +240,7 @@ public class Game {
         //
         giles.giveItem(armor);
         giles.giveItem(sword2);
+        giles.giveItem(potion);
         //
 
 
