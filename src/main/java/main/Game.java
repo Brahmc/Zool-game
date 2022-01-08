@@ -47,7 +47,7 @@ public class Game {
         villageCenter = new Room("in the center of the village");
         townHall = new Room("in the town hall");
         backAlley = new Room("in a shady back alley in the back of the village");
-        adventurersGuild = new Room("in he adventurers guild");
+        adventurersGuild = new Room("in the adventurers guild");
         gate = new Room("at the gate that leads to the outside");
         field = new Room("in the field near the village");
         forrest = new Room("in the forrest");
@@ -137,7 +137,7 @@ public class Game {
         //
 
         //create NonPlayer goblin
-        Armor cloth = new Armor("axe", "stone axe", 1);
+        Armor cloth = new Armor("cloth", "leather cloth", 1);
         NonPlayer goblin = new NonPlayer("goblin", "fighter", true);
         goblin.giveItem(cloth);
         //
@@ -145,6 +145,7 @@ public class Game {
         // create NonPlayer giles
         NonPlayer giles = new NonPlayer("Giles", "Guild Master");
         giles.setColor(33);
+
         // first set of dialogue
         DialogueDefault greeting, goblinQuest, goblinQuest2;
         DialogueReceive goblinAsk;
@@ -154,15 +155,36 @@ public class Game {
         greeting.addOption("Not now!", new DialogueEnd("Alright, don't hesitate to talk to me if you need me!", greeting)); // goes back to greeting
 
         goblinQuest = new DialogueDefault("""
-                I might be able to help you out but I will need something in return, if you bring me some a leather I could give you some armor in return.
+                I might be able to help you out but I will need something in return,
+                if you bring me a leather cloth I could give you some armor in return.
                 """);
+        goblinQuest.addOption("Later..", new DialogueEnd("Oh, okay you can always come back to me!", goblinQuest));
+
         goblinQuest2 = new DialogueDefault("You can get cloth by slaying a goblin. You should be able to find one at the field near the village gate.");
-        goblinQuest2.addOption("Later..", new DialogueEnd("Oh, okay you can always come back to me!", goblinQuest));
         goblinQuest2.setSpawnAction(new SpawnAction(field, goblin)); // spawn goblin in field
 
         goblinAsk = new DialogueReceive("""
-                Did you manage to find the __ITEM_NAME__ for me? You should be able to get one at the field by slaying a goblin!""", cloth);
-        goblinAsk.setNoItemResponse(new DialogueEnd("It seems like you haven't found the item yet..", null));
+                Did you manage to find the __ITEM_NAME__ for me?""", cloth);
+        goblinAsk.setNoItemResponse(new DialogueEnd("""
+        It seems like you haven't found the cloth yet. You should be able to get it at the field by slaying a goblin!""", null));
+
+        greeting.addOption("Better equipment..", goblinQuest);
+        goblinQuest.addOption("Tell me more..", goblinQuest2);
+        goblinQuest2.addOption("Alright I'll be back..", new DialogueEnd("Be careful out there sir!",goblinAsk));
+        //
+
+        // second set of dialogue
+        DialogueGive goblinGive;
+
+        Armor armor = new Armor("armor", "iron armor", 3);
+        goblinGive = new DialogueGive("""
+        It seems like you managed to slay the goblin! You gave me a fine cloth, Here take this __ITEM_NAME__""", armor);
+        goblinAsk.setHasItemResponse(goblinGive); // link to previous dialogue
+
+        Item potion = new HealingItem("potion", "potion of healing", 60);
+
+
+
         //
 
         giles.setCurrentDialogue(greeting);

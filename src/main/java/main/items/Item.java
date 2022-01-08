@@ -8,9 +8,9 @@ public class Item {
     private final String description;
     private final boolean isCollectable;
 
-    public Item(String name, String DESCRIPTION, boolean isCollectable) {
+    public Item(String name, String description, boolean isCollectable) {
         this.name = name;
-        this.description = DESCRIPTION;
+        this.description = description;
         this.isCollectable = isCollectable;
     }
 

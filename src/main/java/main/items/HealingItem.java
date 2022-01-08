@@ -5,8 +5,8 @@ import main.characters.Player;
 public class HealingItem extends  Item{
     private final int healAmount;
 
-    public HealingItem(String name, String DESCRIPTION, int healAmount) {
-        super(name, DESCRIPTION);
+    public HealingItem(String name, String description, int healAmount) {
+        super(name, description);
         this.healAmount = healAmount;
     }
 

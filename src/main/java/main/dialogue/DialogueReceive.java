@@ -43,7 +43,7 @@ public class DialogueReceive extends Dialogue{
     @Override
     protected Dialogue getFollowUp(String option) {
         return switch (option) {
-            case "yes" -> hasItemResponse;
+            case "Give item" -> hasItemResponse;
             case "no" -> noItemResponse;
             default -> null;
         };
