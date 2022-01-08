@@ -63,12 +63,12 @@ public class DialogueProcessor {
 
     private static boolean receive(Player player, NonPlayer nonPlayer, int answer){
         Item item = nonPlayer.getItemOnOffer();
-        if(player.getInventory().contains(item)) { // check for item
+        if(player.getInventory().contains(item) && answer == 1) { // check for item
             player.giveCharacter(nonPlayer, item);
-            return true;
+            return false;
         }
         nonPlayer.nextDialogue(0); // NoItem response
-        return false;
+        return true;
     }
 
     private static int getInt(String string) {

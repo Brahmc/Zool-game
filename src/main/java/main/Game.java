@@ -139,6 +139,7 @@ public class Game {
 
         DialogueReceive ask = new DialogueReceive("""
                 could you get an __ITEM_NAME__ for me? You should be able to get one at the field by slaying a goblin""", axe);
+        ask.setNoItemResponse(new DialogueEnd("It seems like you haven't found the item yet..", null));
         greeting.addOption("Hi..", ask);
 
         giles.setCurrentDialogue(greeting);

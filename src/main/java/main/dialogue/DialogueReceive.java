@@ -18,8 +18,7 @@ public class DialogueReceive extends Dialogue{
         this.hasItemResponse = hasItemResponse;
     }
 
-    public void setNoItemResponse(DialogueEnd noItemResponse) throws IllegalArgumentException{
-        if(noItemResponse.hasFollowUp()) throw new IllegalArgumentException("NoItemResponse cannot have any followUps");
+    public void setNoItemResponse(DialogueEnd noItemResponse) {
         noItemResponse.setNewDialogue(this); // if player doesn't have the item this dialogue will repeat next time
         this.noItemResponse = noItemResponse;
     }
