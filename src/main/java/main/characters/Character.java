@@ -73,6 +73,14 @@ public abstract class Character {
         return (health <= 0);
     }
 
+    public String giveCharacter(Character character, Item item) {
+        if(!getInventory().contains(item)) return "I don't have that item!";
+
+        character.giveItem(item);
+        getInventory().remove(item);
+        return getDisplayName() + " gave you: " + item;
+    }
+
     /**
      * Reduces the amount of taken damage depending on current armor.
      * @param amount damage inflicted on character

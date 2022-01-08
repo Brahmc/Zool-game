@@ -83,6 +83,10 @@ public class Player extends Character{
         return null;
     }
 
+    /**
+     * @param name name of NonPlayer
+     * @return NonPlayer in current room matching name
+     */
     public NonPlayer getNearbyCharacterByName(String name) {
         return currentRoom.getNonPlayerByName(name);
     }

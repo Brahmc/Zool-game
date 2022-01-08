@@ -3,10 +3,14 @@ package main.dialogue;
 import java.util.ArrayList;
 
 public class DialogueEnd extends Dialogue{
-    private final Dialogue newDialogue;
+    private Dialogue newDialogue;
 
     public DialogueEnd(String text, Dialogue newDialogue) {
         super(text, Type.END);
+        this.newDialogue = newDialogue;
+    }
+
+    public void setNewDialogue(Dialogue newDialogue) {
         this.newDialogue = newDialogue;
     }
 
@@ -17,7 +21,7 @@ public class DialogueEnd extends Dialogue{
 
     @Override
     public boolean hasFollowUp() {
-        return true;
+        return (newDialogue != null);
     }
 
     @Override

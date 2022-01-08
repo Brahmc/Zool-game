@@ -53,18 +53,7 @@ public class NonPlayer extends Character {
     }
 
     public Item getItemOnOffer() {
-        if(currentDialogue instanceof DialogueGive g) {
-            return g.getItem();
-        }
-        return null;
-    }
-
-    public String giveCharacter(Character character, Item item) {
-        if(!getInventory().contains(item)) return "I don't have that item!";
-
-        character.giveItem(item);
-        getInventory().remove(item);
-        return getDisplayName() + " gave you: " + item;
+        return currentDialogue.getItem();
     }
 
     @Override

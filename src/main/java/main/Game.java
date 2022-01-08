@@ -3,9 +3,7 @@ package main;
 import Commands.Command;
 import main.characters.NonPlayer;
 import main.characters.Player;
-import main.dialogue.DialogueDefault;
-import main.dialogue.DialogueEnd;
-import main.dialogue.DialogueGive;
+import main.dialogue.*;
 import main.event.StartFight;
 import main.items.HealingItem;
 import main.items.Item;
@@ -130,6 +128,23 @@ public class Game {
 
         villageCenter.addCharacter(alan);
 
+        Weapon axe = new Weapon("axe", "stone axe", 1, 2, 3);
+        NonPlayer goblin = new NonPlayer("goblin", "fighter");
+        goblin.giveItem(axe);
+
+        NonPlayer giles = new NonPlayer("Giles", "Guild person");
+        DialogueDefault greeting = new DialogueDefault("""
+                Hey there!""");
+        greeting.setSpawnAction(new SpawnAction(field, goblin));
+
+        DialogueReceive ask = new DialogueReceive("""
+                could you get an __ITEM_NAME__ for me? You should be able to get one at the field by slaying a goblin""", axe);
+        greeting.addOption("Hi..", ask);
+
+        giles.setCurrentDialogue(greeting);
+
+
+        villageCenter.addCharacter(giles);
         player.setCurrentRoom(villageCenter);
     }
 

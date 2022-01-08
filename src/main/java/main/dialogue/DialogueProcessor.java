@@ -35,23 +35,40 @@ public class DialogueProcessor {
             System.out.println(nonPlayer.getCurrentOptions());
             int answer = getInt(pars.getFirstOnly()); // hold till answer
 
-            answerAction(player, nonPlayer, answer);
-            answered = nonPlayer.nextDialogue(answer);
+            if(answerAction(player, nonPlayer, answer)) {
+                answered = nonPlayer.nextDialogue(answer);
+            }
         }
     }
 
-    private static void answerAction(Player player, NonPlayer nonPlayer, int answer) {
-        switch (nonPlayer.getDialogue().getType()) {
+    /**
+     * @return true if nextDialogue should be triggered
+     */
+    private static boolean answerAction(Player player, NonPlayer nonPlayer, int answer) {
+        return switch (nonPlayer.getDialogue().getType()) {
             case GIVE -> give(player, nonPlayer, answer);
-        }
+            case RECEIVE -> receive(player, nonPlayer, answer);
+            default -> true;
+        };
     }
 
-    private static void give(Player player, NonPlayer nonPlayer, int answer) {
+    private static boolean give(Player player, NonPlayer nonPlayer, int answer) {
         Item item = nonPlayer.getItemOnOffer();
         if(answer == 1) {
             String response = nonPlayer.giveCharacter(player, item);
             System.out.println(response);
         }
+        return true;
+    }
+
+    private static boolean receive(Player player, NonPlayer nonPlayer, int answer){
+        Item item = nonPlayer.getItemOnOffer();
+        if(player.getInventory().contains(item)) { // check for item
+            player.giveCharacter(nonPlayer, item);
+            return true;
+        }
+        nonPlayer.nextDialogue(0); // NoItem response
+        return false;
     }
 
     private static int getInt(String string) {
