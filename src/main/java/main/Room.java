@@ -3,7 +3,6 @@ package main;
 import main.characters.NonPlayer;
 import main.event.Event;
 import main.items.Item;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,7 +22,6 @@ public class Room {
         characters = new ArrayList<>();
         event = null;
     }
-
 
     /**
      * @param direction direction for which to add exit
@@ -54,6 +52,21 @@ public class Room {
         items.remove(item);
     }
 
+    public void addCharacter(NonPlayer character) {
+        characters.add(character);
+    }
+
+    /**
+     * @param event event which gets triggered when player enters the room
+     */
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
     /**
      * @param name name of item
      */
@@ -64,7 +77,10 @@ public class Room {
         return null;
     }
 
-    public NonPlayer getCharacterByName(String name) {
+    /**
+     * @param name name of NonPlayer
+     */
+    public NonPlayer getNonPlayerByName(String name) {
         for(NonPlayer character : characters) {
             String cName = character.getName().toLowerCase(Locale.ROOT);
             if(cName.equals(name))
@@ -73,26 +89,13 @@ public class Room {
         return null;
     }
 
-    public void addCharacter(NonPlayer character) {
-        characters.add(character);
-    }
-
     private String getExitString() {
-        StringBuilder returnString = new StringBuilder("Exits: ");
-        for (String direction : exits.keySet()) {
-            returnString.append(" ").append(direction);
-        }
-        return returnString.toString();
+        return "Exits: " + String.join(" ", exits.keySet());
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
+    /**
+     * @return rooms description, items, characters
+     */
     public String getLongDescription() {
         String info = description + ".\n" + getExitString();
         if(!items.isEmpty()) info += "\n\nThis room has items: " + getItemString();
@@ -100,6 +103,9 @@ public class Room {
         return info;
     }
 
+    /**
+     * @return string with list of items in room
+     */
     private String getItemString() {
         StringBuilder string = new StringBuilder();
         for(Item item : items) {
@@ -108,6 +114,9 @@ public class Room {
         return string.toString();
     }
 
+    /**
+     * @return string with list of characters in room
+     */
     private String getCharacterString() {
         HashSet<String> names = new HashSet<>();
         for(NonPlayer c : characters) {
@@ -116,6 +125,9 @@ public class Room {
         return String.join(", ", names);
     }
 
+    /**
+     * Drops all the characters items, replaces the character with a dead version.
+     */
     public void characterDie(NonPlayer character) {
         items.addAll(character.getInventory()); // drop all items on the floor
         characters.remove(character);

@@ -4,7 +4,7 @@ import main.characters.Player;
 
 public class Weapon extends ItemWithLevel{
 
-    private int critRate; // more critRate means critical hits are more likeley
+    private final int critRate; // more critRate means critical hits are more likeley
 
     public Weapon(String name, String description, double weight, int level, int critRate) throws IllegalArgumentException {
         super(name, description, weight, level);
