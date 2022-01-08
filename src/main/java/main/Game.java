@@ -51,7 +51,7 @@ public class Game {
         gate = new Room("at the gate that leads to the outside");
         field = new Room("in the field near the village");
         forrest = new Room("in the forrest");
-        farmLand = new Room("at a wide stretch of farm land");
+        farmLand = new Room("at in wide stretch of farm land");
         demonForrest = new Room("in a cursed forrest near the demon lords castle");
         demonCastle = new Room("in what looks like the castle of the demon lord");
 
@@ -76,8 +76,10 @@ public class Game {
 
         farmLand.addExit("west", field);
         farmLand.addExit("north", demonForrest);
+        demonForrest.addExit("south", farmLand);
+        demonForrest.addExit("north", demonCastle);
 
-        demonCastle.addExit("south", farmLand);
+        demonCastle.addExit("south", demonForrest);
 
         // spawn items
         townHall.addItem(new Weapon("sword", "stone sword", 2, 3));
