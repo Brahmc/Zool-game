@@ -5,8 +5,6 @@ import java.util.HashSet;
 import Commands.CommandFactory.Command;
 
 public class CommandList {
-
-
     public CommandList() {
 
     }
@@ -27,7 +25,6 @@ public class CommandList {
                 Command.DROP,
                 Command.GO,
                 Command.QUIT,
-                Command.TEST,
                 Command.TALK,
                 Command.INV,
                 Command.BACK,

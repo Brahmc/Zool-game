@@ -14,7 +14,7 @@ public class CommandFactory {
     }
 
     public enum Command {
-        LOOK, HELP, TAKE, DROP, GO, QUIT, TALK, INV, BACK, USE, ATTACK, FIGHT, TEST, UNKNOWN
+        LOOK, HELP, TAKE, DROP, GO, QUIT, TALK, INV, BACK, USE, ATTACK, FIGHT, UNKNOWN
     }
 
     private void fill() {   // command words have the same key as the type, this is not a necessity (different languages can easily be added)
@@ -41,7 +41,6 @@ public class CommandFactory {
             case DROP -> new DROPcommand(args);
             case GO -> new GOcommand(args);
             case QUIT -> new QUITcommand(args);
-            case TEST -> new TESTcommand(args);
             case TALK -> new TALKcommand(args);
             case INV -> new INVcommand(args);
             case BACK -> new BACKcommand(args);
