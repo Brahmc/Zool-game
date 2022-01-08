@@ -66,6 +66,12 @@ public abstract class Character {
     }
 
     public void giveItem(Item item) {
+        int numb = 0;
+        String name = item.getName();
+        while (getItemByName(name) != null) {
+            if(numb != 0) item.changeName(name + numb); //change name if multiple items with same name
+            numb++;
+        }
         inventory.add(item);
     }
 
@@ -79,6 +85,18 @@ public abstract class Character {
         character.giveItem(item);
         getInventory().remove(item);
         return getDisplayName() + " gave you: " + item;
+    }
+
+    /**
+     * @param name String matching Item name
+     */
+    protected Item getItemByName(String name) {
+        for(Item item : getInventory()) {
+            if(item.getName().equals(name)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     /**

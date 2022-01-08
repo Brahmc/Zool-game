@@ -5,6 +5,7 @@ import main.characters.NonPlayer;
 import main.characters.Player;
 import main.dialogue.*;
 import main.event.StartFight;
+import main.items.Armor;
 import main.items.HealingItem;
 import main.items.Item;
 import main.items.Weapon;
@@ -17,7 +18,7 @@ public class Game {
         parser = new CommandParse(CommandParse.Type.WALK);
         player = new Player(askName());
         player.setColor(36);
-        createRooms();
+        generateMap();
         printWelcome();
     }
 
@@ -38,7 +39,7 @@ public class Game {
         return name; // name will always be printed in color
     }
 
-    private void createRooms() {
+    private void generateMap() {
         Room villageCenter, townHall, backAlley, adventurersGuild,
                 gate, field, forrest, farmLand, demonForrest, demonCastle;
 
@@ -89,7 +90,10 @@ public class Game {
         DialogueEnd noHelp, end, endRefuse;
         DialogueGive name;
 
-        welcome = new DialogueDefault("Welcome to the adventurers guild sir, how can I help you?");  // -> demonlord, noHelp
+        // create NonPlayer alan
+
+        //dialogue
+        welcome = new DialogueDefault("Hello there sir! Can I help you with something?");  // -> demonlord, noHelp
         demonlord = new DialogueDefault("""
                 Shh.. don't say that name out loud, that demon has been terrorizing the town for years.
                 The only hope we have left for the hero defeat him. Rumor is he showed up in town recently!"""); // -> thatsMe, hero
@@ -108,8 +112,12 @@ public class Game {
                 Please, let met give you this __ITEM_NAME__ it's not much but I want to help out wherever I can!
                 """, sword);
         guild = new DialogueDefault("You should check out the adventurers guild. I'm sure they can help you out!");
-        end= new DialogueEnd("You are our only hope __PLAYER_NAME__..", guild);
-        endRefuse = new DialogueEnd("I guess a real hero wouldn't need an iron sword..", guild);
+        end= new DialogueEnd("""
+                You are our only hope __PLAYER_NAME__! You will need better equipment if you want to defeat the demon lord.
+                I would take a look at the adventurers guild to the west im sure they could help you out!""", guild);
+        endRefuse = new DialogueEnd("""
+                No worries, I guess a real hero wouldn't need an iron sword. Although you do need better equipment,
+                I would take a look at the adventurers guild to the west im sure they could help you out!""", guild);
 
         welcome.addOption("Have you heard about the demon lord...", demonlord);
         welcome.addOption("Not now!", noHelp);
@@ -120,32 +128,46 @@ public class Game {
         name.setTakeResponse(end);
         name.setRefuseResponse(endRefuse);
 
-
-        NonPlayer alan = new NonPlayer("Alan", "Guild master");
+        //alan
+        NonPlayer alan = new NonPlayer("Alan", "Commoner");
         alan.giveItem(sword);
         alan.setColor(96);
         alan.setCurrentDialogue(welcome);
-
         villageCenter.addCharacter(alan);
+        //
 
-        Weapon axe = new Weapon("axe", "stone axe", 1, 2, 3);
-        NonPlayer goblin = new NonPlayer("goblin", "fighter");
-        goblin.giveItem(axe);
+        //create NonPlayer goblin
+        Armor cloth = new Armor("axe", "stone axe", 1, 1);
+        NonPlayer goblin = new NonPlayer("goblin", "fighter", true);
+        goblin.giveItem(cloth);
+        //
 
-        NonPlayer giles = new NonPlayer("Giles", "Guild person");
-        DialogueDefault greeting = new DialogueDefault("""
-                Hey there!""");
-        greeting.setSpawnAction(new SpawnAction(field, goblin));
+        // create NonPlayer giles
+        NonPlayer giles = new NonPlayer("Giles", "Guild Master");
+        giles.setColor(33);
+        // first set of dialogue
+        DialogueDefault greeting, goblinQuest, goblinQuest2;
+        DialogueReceive goblinAsk;
 
-        DialogueReceive ask = new DialogueReceive("""
-                could you get an __ITEM_NAME__ for me? You should be able to get one at the field by slaying a goblin""", axe);
-        ask.setNoItemResponse(new DialogueEnd("It seems like you haven't found the item yet..", null));
-        greeting.addOption("Hi..", ask);
+        greeting = new DialogueDefault("""
+                Hi there sir how can I help you?!""");
+        greeting.addOption("Not now!", new DialogueEnd("Alright, don't hesitate to talk to me if you need me!", greeting)); // goes back to greeting
+
+        goblinQuest = new DialogueDefault("""
+                I might be able to help you out but I will need something in return, if you bring me some a leather I could give you some armor in return.
+                """);
+        goblinQuest2 = new DialogueDefault("You can get cloth by slaying a goblin. You should be able to find one at the field near the village gate.");
+        goblinQuest2.addOption("Later..", new DialogueEnd("Oh, okay you can always come back to me!", goblinQuest));
+        goblinQuest2.setSpawnAction(new SpawnAction(field, goblin)); // spawn goblin in field
+
+        goblinAsk = new DialogueReceive("""
+                Did you manage to find the __ITEM_NAME__ for me? You should be able to get one at the field by slaying a goblin!""", cloth);
+        goblinAsk.setNoItemResponse(new DialogueEnd("It seems like you haven't found the item yet..", null));
+        //
 
         giles.setCurrentDialogue(greeting);
+        adventurersGuild.addCharacter(giles);
 
-
-        villageCenter.addCharacter(giles);
         player.setCurrentRoom(villageCenter);
     }
 

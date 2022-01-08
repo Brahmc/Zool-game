@@ -28,7 +28,7 @@ public class TALKcommand extends Command{
         NonPlayer character = player.getNearbyCharacterByName(characterName);
 
         if(character == null) {
-            System.out.println("There is no such person in the room!");
+            System.out.println("There is no such character in the room!");
             return false;
         }
         if(!character.hasDialogue()) {

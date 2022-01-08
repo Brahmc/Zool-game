@@ -37,7 +37,7 @@ public class DialogueProcessor {
 
             if(answerAction(player, nonPlayer, answer)) {
                 answered = nonPlayer.nextDialogue(answer);
-            }
+            } else answered = true;
         }
     }
 
@@ -45,6 +45,7 @@ public class DialogueProcessor {
      * @return true if nextDialogue should be triggered
      */
     private static boolean answerAction(Player player, NonPlayer nonPlayer, int answer) {
+        if(answer == -1) return true; // no valid answer
         return switch (nonPlayer.getDialogue().getType()) {
             case GIVE -> give(player, nonPlayer, answer);
             case RECEIVE -> receive(player, nonPlayer, answer);
@@ -63,12 +64,12 @@ public class DialogueProcessor {
 
     private static boolean receive(Player player, NonPlayer nonPlayer, int answer){
         Item item = nonPlayer.getItemOnOffer();
-        if(player.getInventory().contains(item) && answer == 1) { // check for item
-            player.giveCharacter(nonPlayer, item);
-            return false;
+        if(player.getInventory().contains(item)) { // check for item
+            if(answer == 1) player.giveCharacter(nonPlayer, item);
+            return true;
         }
-        nonPlayer.nextDialogue(0); // NoItem response
-        return true;
+        nonPlayer.nextDialogue(2); // NoItem response
+        return false;
     }
 
     private static int getInt(String string) {

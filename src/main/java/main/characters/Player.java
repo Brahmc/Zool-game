@@ -72,18 +72,6 @@ public class Player extends Character{
     }
 
     /**
-     * @param name String matching Item name
-     */
-    private Item getItemByName(String name) {
-        for(Item item : getInventory()) {
-            if(item.getName().equals(name)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    /**
      * @param name name of NonPlayer
      * @return NonPlayer in current room matching name
      */

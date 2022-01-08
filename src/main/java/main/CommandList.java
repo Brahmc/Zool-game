@@ -31,7 +31,8 @@ public class CommandList {
                 Command.TALK,
                 Command.INV,
                 Command.BACK,
-                Command.USE);
+                Command.USE,
+                Command.FIGHT);
         return commands;
     }
 

@@ -8,11 +8,17 @@ import java.util.ArrayList;
 public class NonPlayer extends Character {
     private Dialogue currentDialogue;
     private final String profession;
+    private final boolean canFight;
 
     public NonPlayer(String name, String profession) {
+        this(name, profession, false);
+    }
+
+    public NonPlayer(String name, String profession, boolean canFight) {
         super(name);
         this.profession = profession;
         currentDialogue = null;
+        this.canFight = canFight;
     }
 
     public void setCurrentDialogue(Dialogue dialogue) {
@@ -40,6 +46,10 @@ public class NonPlayer extends Character {
             num++;
         }
         return offer + "Options: " + String.join(", ", formatted);
+    }
+
+    public boolean canFight() {
+        return canFight;
     }
 
     /**
