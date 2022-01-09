@@ -5,8 +5,6 @@ import main.characters.Player;
 import java.util.List;
 
 public class USEcommand extends Command{
-
-
     public USEcommand(List<String> args) {
         super(args);
     }
