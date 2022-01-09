@@ -45,22 +45,29 @@ public class ATTACKcommand extends Command{
         int damage = damageInfo.getDamage();
         int damageTaken = defender.takeDamage(damage); // damage taken by character1 (Armor reduces damage)
         String damageString = "(-\u001B[31m" + damageTaken + "\u001B[0m)"; // displays damage in red (ANSI)
+        String attackerName;
+        String nameEnd;
+        String defenderName;
+        boolean emptyLine = false;
 
         if(attacker instanceof Player) {
-            if(damageInfo.isCritHit()) {
-                System.out.println("You got a critical hit on " + defender.getDisplayName() + damageString);
-            } else {
-                System.out.println("You attacked " + defender.getDisplayName() + damageString);
-            }
-            System.out.println(defender.getName() + "'s health: " + defender.getDisplayHealth());
-            System.out.println();
+            attackerName = "You";
+            nameEnd = "r";
+            defenderName = defender.getDisplayName();
+            emptyLine = true;
         } else {
-            if(damageInfo.isCritHit()) {
-                System.out.println(attacker.getDisplayName() + " got a critical hit on you " + damageString);
-            } else {
-                System.out.println(attacker.getDisplayName() + " attacked you " + damageString);
-            }
-            System.out.println("Your current health: " + defender.getDisplayHealth());
+            attackerName = attacker.getDisplayName();
+            nameEnd = "'s";
+            defenderName = "You";
         }
+
+        if(damageInfo.isCritHit()) {
+            System.out.println(attackerName + " got a critical hit on " + defender + " " + damageString);
+        } else {
+            System.out.println(attackerName + " attacked " + defenderName + " " + damageString);
+        }
+
+        System.out.println(attackerName + nameEnd + " current health: " + defender.getDisplayHealth());
+        if(emptyLine) System.out.println();
     }
 }
