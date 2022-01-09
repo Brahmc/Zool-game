@@ -43,21 +43,21 @@ public class ATTACKcommand extends Command{
     private void attack() {
         DamageInfo damageInfo = attacker.getDamage();
         int damage = damageInfo.getDamage();
-        int damageTaken = defender.takeDamage(damage); // damage taken by character1 (Armor reduces damage)
-        String damageString = "(-\u001B[31m" + damageTaken + "\u001B[0m)"; // displays damage in red (ANSI)
-        String attackerName;
-        String nameEnd;
-        String defenderName;
-        boolean emptyLine = false;
+        int damageTaken = defender.takeDamage(damage); // damage taken by defender (Armor reduces damage)
 
+        //print result
+        String damageString = "(-\u001B[31m" + damageTaken + "\u001B[0m)"; // displays damage in red (ANSI)
+
+        String attackerName, defenderName, defenderNameEnd;
+        boolean emptyLine = false;
         if(attacker instanceof Player) {
             attackerName = "You";
-            nameEnd = "r";
+            defenderNameEnd = "'s";
             defenderName = defender.getDisplayName();
             emptyLine = true;
         } else {
             attackerName = attacker.getDisplayName();
-            nameEnd = "'s";
+            defenderNameEnd = "r";
             defenderName = "You";
         }
 
@@ -66,8 +66,7 @@ public class ATTACKcommand extends Command{
         } else {
             System.out.println(attackerName + " attacked " + defenderName + " " + damageString);
         }
-
-        System.out.println(attackerName + nameEnd + " current health: " + defender.getDisplayHealth());
+        System.out.println(defenderName + defenderNameEnd + " current health: " + defender.getDisplayHealth());
         if(emptyLine) System.out.println();
     }
 }

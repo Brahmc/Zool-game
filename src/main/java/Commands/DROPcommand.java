@@ -20,8 +20,8 @@ public class DROPcommand extends Command {
             System.out.println("Drop what?");
             return false;
         }
-        String itemName = String.join(" ", getArgs()); // items can have spaces in them
 
+        String itemName = String.join(" ", getArgs()); // items can have spaces in them
         if (player.drop(itemName)) {
             System.out.println(player.getName() + " dropped " + itemName);
         } else {
