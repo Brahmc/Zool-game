@@ -11,7 +11,7 @@ public class BACKcommand extends Command{
 
     @Override
     public String getDescription() {
-        return "Go back to previous room";
+        return "Go back to previous room.";
     }
 
     @Override

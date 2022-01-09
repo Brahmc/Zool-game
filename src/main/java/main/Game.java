@@ -1,20 +1,27 @@
 package main;
 
 import Commands.Command;
+import main.characters.NonPlayer;
 import main.characters.Player;
+import main.items.Armor;
+import main.items.Weapon;
 import main.parser.CommandParse;
 
 public class Game {
     private final CommandParse parser;
     private final Player player;
+    private final NonPlayer endBoss;
 
     public Game() {
         parser = new CommandParse(CommandParse.Type.WALK);
         player = new Player(askName());
         player.setColor(36);
-        Map.generateMap(player);
+        endBoss = Map.generateEndBoss();
+        Map.generateMap(player, endBoss);
         printWelcome();
     }
+
+
 
     private String askName() {
         boolean nameRight = false;
@@ -54,9 +61,7 @@ public class Game {
             finished = c.execute(player);
         }
 
-        if(player.isDead()) { // game stopped because player died
-            playerDied();
-        }
+        afterGame();
     }
 
     private void printLocationInfo() {
@@ -64,12 +69,29 @@ public class Game {
         System.out.println();
     }
 
+    private void afterGame() {
+        if(player.isDead()) { // game stopped because player died
+            playerDied();
+        }
+        if(endBoss.isDead()) { // game stopped because player defeated last enemy
+            printWin();
+        }
+    }
+
     private void playerDied() {
+        System.out.println();
         System.out.println("You died!!");
+
         if(MultipleChoice.twoChoice(parser, "Do you want to restart?", "restart", "quit")) {
             Game g = new Game();
             g.play(); // run game again
         }
+    }
+
+    private void printWin() {
+        System.out.println();
+        System.out.println("Congratulations " + player.getDisplayName() + "you have defeated the demon lord!!");
+        System.out.println("Thank you for playing Zool!");
     }
 
     public static void main(String[] args) {

@@ -14,7 +14,7 @@ public class Map {
     /**
      * Generates entire map including items, NonPlayers, Room events
      */
-    public static void generateMap(Player player) {
+    public static void generateMap(Player player, NonPlayer demonLord) {
         Room villageCenter, townHall, backAlley, adventurersGuild,
                 gate, field, forrest, farmLand, demonForrest, demonCastle;
 
@@ -75,10 +75,7 @@ public class Map {
         //
 
         //create NonPlayer demon lord
-        NonPlayer demonLord = new NonPlayer("demonLord", "lord of demons", true, 200);
-        demonLord.setWeapon(new Weapon("sword", "demon lord's sword", 6, 4));
 
-        demonLord.setArmor(new Armor("armor", "demon lord's armor", 2));
         demonCastle.addCharacter(demonLord);
         demonCastle.setEvent(new StartFight("The demon lord is attacking you!", demonLord));
         //
@@ -239,5 +236,12 @@ public class Map {
         //
 
         player.setCurrentRoom(villageCenter);
+    }
+
+    public static NonPlayer generateEndBoss() {
+        NonPlayer demonLord = new NonPlayer("demonLord", "lord of demons", true, 200);
+        demonLord.setWeapon(new Weapon("sword", "demon lord's sword", 6, 4));
+        demonLord.setArmor(new Armor("armor", "demon lord's armor", 2));
+        return demonLord;
     }
 }
