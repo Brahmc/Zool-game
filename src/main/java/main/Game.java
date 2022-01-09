@@ -90,7 +90,7 @@ public class Game {
 
     private void printWin() {
         System.out.println();
-        System.out.println("Congratulations " + player.getDisplayName() + "you have defeated the demon lord!!");
+        System.out.println("Congratulations " + player.getDisplayName() + " you have defeated the demon lord!!");
         System.out.println("Thank you for playing Zool!");
     }
 

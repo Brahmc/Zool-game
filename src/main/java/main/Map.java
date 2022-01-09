@@ -3,6 +3,7 @@ package main;
 import main.characters.NonPlayer;
 import main.characters.Player;
 import main.dialogue.*;
+import main.event.StartEndFight;
 import main.event.StartFight;
 import main.items.Armor;
 import main.items.HealingItem;
@@ -74,10 +75,10 @@ public class Map {
         demonForrest.setEvent(new StartFight("The demon defending the castle is attacking you!", demon));
         //
 
-        //create NonPlayer demon lord
+        //add demon lord
 
         demonCastle.addCharacter(demonLord);
-        demonCastle.setEvent(new StartFight("The demon lord is attacking you!", demonLord));
+        demonCastle.setEvent(new StartEndFight("The demon lord is attacking you!", demonLord));
         //
 
         //create NonPlayer thief

@@ -62,7 +62,7 @@ public class ATTACKcommand extends Command{
         }
 
         if(damageInfo.isCritHit()) {
-            System.out.println(attackerName + " got a critical hit on " + defender.getDisplayHealth() + " " + damageString);
+            System.out.println(attackerName + " got a critical hit on " + defender.getDisplayName() + " " + damageString);
         } else {
             System.out.println(attackerName + " attacked " + defenderName + " " + damageString);
         }
