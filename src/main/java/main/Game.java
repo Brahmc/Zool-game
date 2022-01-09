@@ -268,7 +268,7 @@ public class Game {
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul, " + player.getDisplayName() + "!");
+        System.out.println("Welcome to the World of Zool, " + player.getDisplayName() + "!");
         System.out.println();
         System.out.println("For hundreds of years an evil demon lord has been terrorising the people.");
         System.out.println("But don't worry, someone by the name of " + player.getDisplayName() + " can stop him. Or so the legend goes...");

@@ -70,7 +70,7 @@ public abstract class Character {
 
     public void giveItem(Item item) {
         int numb = 1;
-        String name = item.getName();
+        String name = item.getName().replaceAll("[0-9]",""); // remove numbers
         String newName = name;
         while (getItemByName(newName) != null) {
             numb++;
