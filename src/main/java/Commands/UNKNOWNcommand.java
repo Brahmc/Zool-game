@@ -5,7 +5,6 @@ import main.characters.Player;
 import java.util.List;
 
 public class UNKNOWNcommand extends Command {
-
     public UNKNOWNcommand(List<String> args) {
         super(args);
     }

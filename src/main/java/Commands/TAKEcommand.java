@@ -7,7 +7,6 @@ import main.characters.Player;
 import java.util.List;
 
 public class TAKEcommand extends Command{
-
     public TAKEcommand(List<String> args) {
         super(args);
     }

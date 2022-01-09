@@ -5,7 +5,6 @@ import main.characters.Player;
 import java.util.List;
 
 public class INVcommand extends Command{
-
     public INVcommand(List<String> args) {
         super(args);
     }

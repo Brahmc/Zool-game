@@ -5,7 +5,6 @@ import main.characters.Player;
 import java.util.List;
 
 public class GOcommand extends Command{
-
     public GOcommand(List<String> args) {
         super(args);
     }

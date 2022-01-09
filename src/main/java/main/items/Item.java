@@ -36,7 +36,13 @@ public class Item {
         return string;
     }
 
+    /**
+     * Performs action on player depending on the item instance
+     * @return string specific to instance of item
+     * @throws IllegalItemException item can't be used or equipped
+     */
     public String use(Player player) throws  IllegalItemException {
-        throw new IllegalItemException("This item can't be used or equipped."); // throws error because default items can't be used
+        // throws error because default items can't be used
+        throw new IllegalItemException("This item can't be used or equipped.");
     }
 }

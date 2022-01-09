@@ -57,6 +57,8 @@ public class NonPlayer extends Character {
     }
 
     /**
+     * Change currentDialogue to the next dialogue depending on the option given.
+     * @param option int belonging to one of the currentDialogue options
      * @return true if option is valid
      */
     public boolean nextDialogue(int option) {
@@ -66,6 +68,9 @@ public class NonPlayer extends Character {
         return true;
     }
 
+    /**
+     * @return item currently being offered by currentDialogue
+     */
     public Item getItemOnOffer() {
         return currentDialogue.getItem();
     }

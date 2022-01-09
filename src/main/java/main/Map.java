@@ -11,6 +11,9 @@ import main.items.Weapon;
 
 public class Map {
 
+    /**
+     * Generates entire map including items, NonPlayers, Room events
+     */
     public static void generateMap(Player player) {
         Room villageCenter, townHall, backAlley, adventurersGuild,
                 gate, field, forrest, farmLand, demonForrest, demonCastle;
@@ -56,6 +59,7 @@ public class Map {
         // spawn items
         townHall.addItem(new Weapon("sword", "stone sword", 2, 3));
         townHall.addItem(new Item("bookshelf", "wooden bookshelf", false));
+        townHall.addItem(new HealingItem("potion", "healing potion", 60));
 
         DialogueDefault welcome, demonlord, thatsMe, hero, guild;
         DialogueEnd noHelp, end, endRefuse;

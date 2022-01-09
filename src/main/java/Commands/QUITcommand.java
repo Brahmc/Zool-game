@@ -11,7 +11,6 @@ public class QUITcommand extends Command{
         super(args);
     }
 
-
     @Override
     public String getDescription() {
         return "Leave the game.";

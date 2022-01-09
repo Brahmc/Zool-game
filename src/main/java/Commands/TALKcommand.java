@@ -7,7 +7,6 @@ import main.characters.Player;
 import java.util.List;
 
 public class TALKcommand extends Command{
-
     public TALKcommand(List<String> args) {
         super(args);
     }

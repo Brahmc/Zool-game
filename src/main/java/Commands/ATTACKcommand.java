@@ -15,7 +15,7 @@ public class ATTACKcommand extends Command{
 
     @Override
     public String getDescription() {
-        return "Attack ";
+        return "Attack the character you are currently fighting with.";
     }
 
     @Override

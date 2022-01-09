@@ -68,6 +68,15 @@ public abstract class Character {
         return inventory;
     }
 
+    public boolean isDead() {
+        return (health <= 0);
+    }
+
+    /**
+     * Add item to inventory, will change the item's name if different item with the same name
+     * is currently in inventory.
+     * @param item item that will be added
+     */
     public void giveItem(Item item) {
         int numb = 1;
         String name = item.getName().replaceAll("[0-9]",""); // remove numbers
@@ -80,10 +89,12 @@ public abstract class Character {
         inventory.add(item);
     }
 
-    public boolean isDead() {
-        return (health <= 0);
-    }
-
+    /**
+     * Give other character an item and remove it from inventory.
+     * @param character character item will be given to
+     * @param item item that will be given
+     * @return string with response of character
+     */
     public String giveCharacter(Character character, Item item) {
         if(!getInventory().contains(item)) return "I don't have that item!";
 
@@ -149,6 +160,9 @@ public abstract class Character {
         return "\u001B[32m" + health + "\u001B[0m"; // health will be displayed in green
     }
 
+    /**
+     * @return String with equipped items
+     */
     public String getStats() {
         String BOLD = "\033[0;1m"; // Start bold (ANSI)
         String END = "\u001B[0m"; // White text

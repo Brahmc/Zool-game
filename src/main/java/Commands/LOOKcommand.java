@@ -5,7 +5,6 @@ import main.characters.Player;
 import java.util.List;
 
 public class LOOKcommand extends Command {
-
     public LOOKcommand(List<String> args) {
         super(args);
     }
