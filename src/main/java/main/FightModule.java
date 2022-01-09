@@ -52,12 +52,4 @@ public class FightModule {
 
         System.out.println(player.getInfo());
     }
-
-    private void printAttack() {
-
-    }
-
-    private void win() {
-        System.out.println();
-    }
 }

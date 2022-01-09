@@ -13,7 +13,7 @@ import main.items.Weapon;
 public class Map {
 
     /**
-     * Generates entire map including items, NonPlayers, Room events
+     *Generates entire map including items, NonPlayers, Room events
      */
     public static void generateMap(Player player, NonPlayer demonLord) {
         Room villageCenter, townHall, backAlley, adventurersGuild,
@@ -243,6 +243,7 @@ public class Map {
         NonPlayer demonLord = new NonPlayer("demonLord", "lord of demons", true, 200);
         demonLord.setWeapon(new Weapon("sword", "demon lord's sword", 6, 4));
         demonLord.setArmor(new Armor("armor", "demon lord's armor", 2));
+        demonLord.setColor(31);
         return demonLord;
     }
 }

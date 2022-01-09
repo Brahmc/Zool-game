@@ -3,8 +3,6 @@ package main;
 import Commands.Command;
 import main.characters.NonPlayer;
 import main.characters.Player;
-import main.items.Armor;
-import main.items.Weapon;
 import main.parser.CommandParse;
 
 public class Game {
