@@ -1,9 +1,11 @@
 package main;
 
+import main.parser.Parser;
+
 import java.util.Arrays;
 import java.util.Locale;
 
-public class OptionParse {
+public class MultipleChoice {
 
     public static String multipleChoice(Parser parser, String desc, String... options) {
 

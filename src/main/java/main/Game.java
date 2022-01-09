@@ -9,6 +9,7 @@ import main.items.Armor;
 import main.items.HealingItem;
 import main.items.Item;
 import main.items.Weapon;
+import main.parser.CommandParse;
 
 public class Game {
     private final CommandParse parser;
@@ -33,7 +34,7 @@ public class Game {
                 System.out.println("Your name cannot contain spaces!");
                 continue;
             }
-            nameRight = OptionParse.twoChoice(parser, "Are you sure you want to be called " + name + "?"
+            nameRight = MultipleChoice.twoChoice(parser, "Are you sure you want to be called " + name + "?"
                                         , "yes", "no");
         }
         return name; // name will always be printed in color
@@ -299,7 +300,7 @@ public class Game {
 
     private void playerDied() {
         System.out.println("You died!!");
-        if(OptionParse.twoChoice(parser, "Do you want to restart?", "restart", "quit")) {
+        if(MultipleChoice.twoChoice(parser, "Do you want to restart?", "restart", "quit")) {
             Game g = new Game();
             g.play(); // run game again
         }

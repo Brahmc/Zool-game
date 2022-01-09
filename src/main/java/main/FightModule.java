@@ -4,6 +4,7 @@ import Commands.ATTACKcommand;
 import Commands.Command;
 import main.characters.NonPlayer;
 import main.characters.Player;
+import main.parser.CommandParse;
 
 public class FightModule {
 

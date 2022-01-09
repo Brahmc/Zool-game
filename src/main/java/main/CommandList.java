@@ -3,6 +3,7 @@ package main;
 import java.util.Collections;
 import java.util.HashSet;
 import Commands.CommandFactory.Command;
+import main.parser.CommandParse;
 
 public class CommandList {
     public CommandList() {

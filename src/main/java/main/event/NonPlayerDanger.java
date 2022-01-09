@@ -1,8 +1,8 @@
 package main.event;
 
 import main.FightModule;
-import main.OptionParse;
-import main.Parser;
+import main.MultipleChoice;
+import main.parser.Parser;
 import main.characters.NonPlayer;
 import main.characters.Player;
 
@@ -19,7 +19,7 @@ public class NonPlayerDanger extends Event{
     @Override
     public boolean execute(Player player) {
         Parser pars = new Parser();
-        if(OptionParse.twoChoice(pars, "", "intervene", "back")) {
+        if(MultipleChoice.twoChoice(pars, "", "intervene", "back")) {
             FightModule fight = new FightModule(player, hostile);
             return !fight.startFight();
         } else {

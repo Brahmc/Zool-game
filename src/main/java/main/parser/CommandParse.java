@@ -1,6 +1,7 @@
-package main;
+package main.parser;
 
 import Commands.CommandFactory;
+import main.CommandList;
 
 import java.util.*;
 

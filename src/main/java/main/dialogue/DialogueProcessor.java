@@ -1,7 +1,7 @@
 package main.dialogue;
 
 import main.items.Item;
-import main.Parser;
+import main.parser.Parser;
 import main.characters.NonPlayer;
 import main.characters.Player;
 
